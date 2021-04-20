@@ -1,0 +1,69 @@
+.whole{
+    padding-left: 0vh;
+    padding-right: 0vh;
+}
+
+.col{
+    border-radius: 20px;
+    padding-top: 5mm;
+    padding-bottom: 5mm;
+    padding-right: 5mm;
+    padding-left: 5mm;
+}
+
+
+.btn-primary {
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 15px; 
+    font-weight: bold;
+}
+
+.header{
+    background-color: rgb(5, 183, 253);
+    padding-top: 4mm;
+    padding-bottom: 4mm;
+    color: white;
+}
+.body{
+    background-image: url('../Images/LoginBackground.jpg');
+    min-height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.content{
+    justify-content: center;
+}
+.login-body{
+    /* margin-top: 10%; */
+    border-radius: 20px;
+    padding-top: 5mm;
+    padding-bottom: 5mm;
+    padding-right: 5mm;
+    padding-left: 5mm;
+}
+.message{
+    justify-content: center;
+    margin-bottom: 5mm;
+    padding-top: 5mm;
+    padding-bottom: 5mm;
+}
+.form-control{
+    border-radius: 20px;
+}
+.submit{
+    margin-bottom: 4mm;
+}
+.changepassword{
+    padding-bottom: 2mm;
+}
+.text{
+    padding-bottom: 3mm;
+}
+.d-md-flex{
+    padding-bottom: 3mm;
+}
+.validations{
+    font-size: 1vm;
+    font-size-adjust: inherit;
+}
