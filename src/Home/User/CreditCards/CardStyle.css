@@ -1,0 +1,190 @@
+.card{
+    border-radius: 20px;
+    background-image: url("../../../Images/creditcardbackground.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    min-height: 88mm;
+}
+.h3-add{
+    text-align: center;
+    padding-top: 10mm;
+    padding-bottom: 10mm;
+}
+.h4-enter{
+    text-align: center;
+}
+.cardtype{
+    text-align: right;
+    font-weight: bold;
+    color: white;
+    padding-right: 15mm;
+    text-indent: 0mm;
+    font-size: 25px;
+}
+
+.cardtitle{
+    text-align: right;
+    font-weight: bold;
+    color: white;
+    padding-right: 15mm;
+    padding-top: 5mm;
+    text-indent: 10mm;
+    font-size: 30px;
+}
+
+.cardpadding{
+    padding-right: 15mm;
+    padding-top: 10mm;
+    padding-bottom: 8mm;
+    text-indent: 10mm;
+    font-size: 20px;
+}
+
+.cardnumber{
+    font-weight: bold;
+    color: white;
+    padding-right: 15mm;
+    padding-top: 5mm;
+    text-indent: 8mm;
+    text-justify: newspaper;
+    font-size: 25px;
+}
+
+.cardname{
+    font-weight: bold;
+    color: white;
+    padding-right: 15mm;
+    padding-top: 1mm;
+    text-indent: 4mm;
+    font-size: 18px;
+}
+.cardexpiry{
+    text-align: right;
+    font-weight: bold;
+    color: white;
+    padding-right: 15mm;
+    padding-top: 2mm;
+    padding-bottom: 0mm;
+    text-indent: 8mm;
+    font-size: 16px;
+}
+.row{
+    padding-top: 1mm;
+    padding-bottom: 1mm;
+}
+.expiry{
+    justify-content: left;
+}
+
+.bttn{
+    font-size: 16px;
+    font-weight: bold;
+    color: White;
+
+    background-color: blue;
+}
+.bttn:hover{
+    font-size: 16px;
+    font-weight: bold;
+    color: White;
+
+    background-color: green;
+}
+.bttn-dan{
+    font-size: 16px;
+    font-weight: bold;
+    color: White;
+    text-align: center;
+
+    background-color: royalblue;
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.5s ease;
+  }
+  .card:hover .overlay {
+    display: block;
+    background: rgba(0, 0, 0, .3);
+  }
+  .hover-btn-del {
+    font-size: 16px;
+    font-weight: bold;
+    color: White;
+    position: absolute;
+    top: 180px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+  .hover-btn-del {
+    text-align: center;
+    color: white;
+  }
+  
+  .card:hover .hover-btn-del {
+    opacity: 1;
+  }
+  .hover-btn-view {
+      border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: White;
+    position: absolute;
+    top: 100px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+  .hover-btn-view {
+    text-align: center;
+    color: white;
+  }
+  
+  .card:hover .hover-btn-view {
+    opacity: 1;
+  }
+
+  .col-bttn{
+      text-align: center;
+      padding-top: 10mm;
+      padding-bottom: 10mm;
+
+  }
+  .clear-btn{
+      color: White;
+      font-size: 16px;
+      text-align: center;
+      background-color: blue;
+  }
+  .clear-btn:hover{
+    cursor: pointer;
+    color: White;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    background-color: red;
+}
+.card-text-details{
+    background-color: seashell;
+    border-radius: 20px;
+    padding-top: 2mm;
+    padding-bottom: 2mm;
+
+}
+.card-text-details:hover{
+    background-color: papayawhip;
+    border-radius: 20px;
+    padding-top: 2mm;
+    padding-bottom: 2mm;
+    box-shadow: #0ff;
+}
+.label-card{
+    font-weight: bold;
+}

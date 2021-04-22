@@ -10,7 +10,12 @@
     padding-right: 5mm;
     padding-left: 5mm;
 }
-
+.row{
+    justify-content: center;
+    padding-top: 2mm;
+    padding-bottom: 2mm;
+    text-align: left;
+}
 
 .btn-primary {
     cursor: pointer;
@@ -18,7 +23,20 @@
     font-size: 15px; 
     font-weight: bold;
 }
-
+.btn-default{
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: gray;
+    color: white;
+}
+.btn-default:hover{
+    background-color: indigo;
+    color: white;
+}
+.signUp-bttn{
+    width: 20vh;
+}
 .header{
     background-color: rgb(5, 183, 253);
     padding-top: 4mm;
@@ -27,6 +45,12 @@
 }
 .body{
     background-image: url('../Images/LoginBackground.jpg');
+    min-height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.signUp-body{
+    background-image: url('../Images/AddUserBgImg.jpg');
     min-height: 80vh;
     background-repeat: no-repeat;
     background-size: cover;
@@ -51,6 +75,9 @@
 .form-control{
     border-radius: 20px;
 }
+.signUp-form{
+    border-radius: 10px;
+}
 .submit{
     margin-bottom: 4mm;
 }
@@ -66,4 +93,68 @@
 .validations{
     font-size: 1vm;
     font-size-adjust: inherit;
+}
+.control-label{
+    text-align: left;
+    vertical-align: middle;
+}
+.h2{
+    text-align: center;
+    padding-bottom: 4mm;
+    padding-top: 4mm;
+}
+.body-start{
+    padding-top: 5mm;
+    padding-bottom: 5mm;
+    border-radius: 20px;
+    margin-bottom: 10mm;
+}
+.h3{
+    text-align: center;
+}
+.h2-login{
+    text-align: center;
+}
+.h2-admin-allusers{
+    text-align: center;
+}
+.table-search{
+    text-align: right;
+}
+.table-body{
+    /* vertical-align: middle; */
+    justify-content: center;
+    vertical-align: bottom;
+}
+thead{
+    text-align: center;
+    background-color: blueviolet;
+    color: white;
+}
+tbody{
+    background-color: lavenderblush;
+}
+.nav-link{
+    color: rgb(255, 255, 255,1)!important;
+    font-size: medium;
+    opacity: "1";
+}
+.nav-link:hover{
+    font-size: medium;
+    font-weight: bold;
+    font-size: 17px;
+    color: White;
+    opacity: "1";
+}
+.nav-link:active{
+    font-size: medium;
+    font-weight: bold;
+    font-size: 17px;
+    color: White;
+    opacity: "1";
+}
+
+.noPadding{
+    padding-left: 0mm;
+    padding-right: 0mm;
 }

@@ -1,0 +1,62 @@
+.personal-details-container{
+    margin-top: 15mm;
+    border-radius: 15px;
+}
+
+.edit-last{
+    text-align: right;
+    justify-content: right;
+    margin-bottom: 0mm;
+}
+.bi-pencil-square{
+    text-align: right;
+    justify-self: right;
+    justify-content: right;
+}
+.personal-details{
+    justify-content: center;
+}
+.bi-person-square{
+    font-size: 10vmax;
+    font-weight: lighter;
+    color: palegreen;
+    vertical-align: top;
+}
+.pic{
+    text-align: center;
+    vertical-align:top;
+}
+.text-details{
+    margin-top: 10mm;
+}
+
+.span-personal-details{
+    text-align: left;
+    justify-content: left;
+}
+.details-control{
+    justify-content: left;
+    /* text-indent: 30mm; */
+    font-size: 20px;
+}
+.bi-envelope,.bi-telephone,.bi-calendar4-event{
+    text-indent: 0mm;
+    font-size: 24px;
+    padding-right: 5mm;
+}
+
+.person-name{
+    padding-bottom: 5mm;
+}
+.person-address{
+    margin-top: 10mm;
+    margin-bottom: 10mm;
+    padding-bottom: 10mm!important;
+}
+
+.bi-geo-alt{
+    font-size: 8vmax;
+    font-weight: lighter;
+    color: palegreen;
+    vertical-align: top;
+}

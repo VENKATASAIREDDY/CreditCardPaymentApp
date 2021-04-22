@@ -1,0 +1,22 @@
+import React, { Component } from 'react';
+import AdminRoutes from './AdminRoutes';
+import NavigationBar from './NavigationsBar';
+
+class AdminHomeApp extends Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        const userId=this.props.match.params.userId;
+        return(
+            <div className="container-fluid">
+                <NavigationBar userId={userId}/>
+                <div className="container home-body">
+                    <AdminRoutes/>
+                </div>
+            </div>
+        )
+    }
+}
+export default AdminHomeApp;

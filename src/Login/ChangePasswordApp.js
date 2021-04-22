@@ -100,7 +100,7 @@ class ChangePasswordApp extends Component{
                         </div>
                         <div className="row content">
                             <div className="col-lg-4 bg-light login-body">
-                                <h3 className="text">Change Password </h3>
+                                <h3 className="text h3">Change Password </h3>
                                 <form className="login-form" onSubmit={this.changePassword}>
                                     <div className="form-group">
                                         <input type="text" name="userId" className="form-control" placeholder="UserId*" onChange={this.handleInputChange} required={this.state.errors.userId}/>

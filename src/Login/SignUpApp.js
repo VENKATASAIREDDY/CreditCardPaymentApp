@@ -81,6 +81,9 @@ class SignUpApp extends Component{
     }
 
     render(){
+        if(this.props.isSignedUp){
+            return <Redirect to={`/finishSignUp/${this.state.userId}`}/>
+        }
         return(
             <div className="container-fluid whole">
                 <div className="container-fluid header">
@@ -100,7 +103,7 @@ class SignUpApp extends Component{
                         </div>
                         <div className="row content">
                             <div className="col-lg-4 bg-light login-body">
-                                <h3 className="text">Sign Up</h3>
+                                <h3 className="text h3">Sign Up</h3>
                                 <form className="login-form" onSubmit={this.doSignUp}>
                                     <div className="form-group">
                                         <input type="text" name="userId" className="form-control" placeholder="UserId*" onChange={this.handleInputChange}/>

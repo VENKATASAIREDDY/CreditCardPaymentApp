@@ -60,11 +60,10 @@ class LoginApp extends Component{
         const {login, isAuthUser} = this.props;
         if (login.role !== undefined && isAuthUser) {
             if (login.role === "ADMIN" && isAuthUser) {
-                return <Redirect to="/home/admin" />
+                return <Redirect to={`/admin/home/${this.state.userId}`} />
             }
             else if (login.role === "USER" && isAuthUser) {
-                // alert("logged In")
-                // return <Redirect to={`home/customer/${this.props.login.userId}`} />
+                return <Redirect to={`/home/${this.state.userId}`} />
             }
             else {
                 return <Redirect to="/"/>
@@ -73,7 +72,7 @@ class LoginApp extends Component{
         return(
             <div className="container-fluid whole">
                 <div className="container-fluid header">
-                    <h2>Welcome to Credit Card payment</h2>
+                    <h2 className="h2-login">Welcome to Credit Card payment</h2>
                 </div>
                 <div className="container-fluid body">
                     <div className="container body-start">
@@ -89,7 +88,7 @@ class LoginApp extends Component{
                         </div>
                         <div className="row content">
                             <div className="col-lg-4 bg-light login-body">
-                                <h3 className="text">Sign In</h3>
+                                <h3 className="text h3">Sign In</h3>
                                 <form className="login-form" onSubmit={this.doLogin}>
                                     <div className="form-group">
                                         <input type="text" name="userId" className="form-control" placeholder="UserId*" onChange={this.handleInputChange} required={this.state.errors.userId}/>
@@ -119,7 +118,7 @@ class LoginApp extends Component{
                     </div>
                 </div>
                 <div className="container-fluid fotter">
-                    <h2>Fotter</h2>
+                    <h2 className="h2-login">Fotter</h2>
                 </div>
             </div>
         )

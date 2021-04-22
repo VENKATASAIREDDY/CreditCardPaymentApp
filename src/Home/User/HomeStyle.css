@@ -1,0 +1,22 @@
+.text-animated {
+    display: inline-block;
+    white-space: nowrap;
+    animation: floatText 20s infinite linear;
+    text-indent: 100vh;
+    position: absolute;
+    padding-left: 100vmax;
+}
+.text-animated:hover {
+    animation-play-state: paused;
+}
+@keyframes floatText {
+    to {
+        transform: translateX(-100%);
+    }
+}
+.body-home{
+    margin-top: 5mm;
+    margin-bottom: 5mm;
+    padding-top: 15mm;
+    padding-bottom: 15mm;
+}

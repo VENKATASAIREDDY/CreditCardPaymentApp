@@ -1,0 +1,82 @@
+.Customer-details-Add{
+    padding-bottom: 8vh;
+    margin-top: 0mm;
+    /* background-image: url('../Images/AddUserBgImg.jpg'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.Customer-body{
+    border-radius: 30px;
+    border-color: blue;
+    background-color: rgb(207, 237, 248);
+}
+
+.Form{
+    font-weight: bold;
+    padding-left: 5vh;
+    padding-right: 2vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+}
+
+.col{
+    border-radius: 20px;
+    padding-top: 5mm;
+    padding-bottom: 5mm;
+    padding-right: 5mm;
+    padding-left: 5mm;
+    
+}
+
+.control-label{
+    vertical-align: middle;
+    justify-content: left;
+}
+
+.row{
+    padding-top: 2mm;
+    padding-bottom: 2mm;
+}
+
+.h2{
+    padding-top: 5mm;
+    padding-bottom: 5mm;
+    margin-bottom: 2mm;
+    margin-top: 2mm;
+    text-align: center;
+}
+
+.h3{
+    padding-top: 2mm;
+    padding-bottom: 2mm;
+    margin-bottom: 2mm;
+    margin-top: 2mm;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+}
+
+.bttn{
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.row{
+    margin-top: 2mm;
+    margin-bottom: 2mm;
+    margin-left: 0mm;
+    margin-right: 0mm;
+    padding-top: 2mm;
+    padding-bottom: 2mm;
+}
+
+.col-comn{
+    font-weight: bold;
+}
+
+.details{
+    background-color: lightyellow;
+    border-radius: 30px;
+}

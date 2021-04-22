@@ -1,11 +1,11 @@
 import './App.css';
-import Routers from './Routers';
+import AllUsers from './Home/Admin/Users/AllUsers';
+import Routes from './Routers';
 
 function App() {
   return (
-    <div className="App">
-      <Routers/>
-    </div>
+    // <AllUsers/>
+    <Routes/>
   );
 }
 
