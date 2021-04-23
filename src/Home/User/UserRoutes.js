@@ -43,7 +43,7 @@ const UserRoutes = () => (
             
             <Route path='/home/:userId/accounts' component={AllAcountApp} exact />
             <Route path='/home/:userId/accounts/addNew' component={AddAccountsApp} exact />
-            <Route path='/home/:userId/accounts/delete' component={DeleteAccountApp} exact />
+            <Route path='/home/:userId/accounts/delete/:accountNumber' component={DeleteAccountApp} exact />
    
             <Route path='/home/:userId/personalDetails' component={PersonalDetails} exact />
             <Route path='/home/:userId/personalDetails/update' component={UpdatePersonalDetailsApp} exact />

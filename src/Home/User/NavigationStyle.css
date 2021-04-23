@@ -1,0 +1,17 @@
+.left-bar{
+    padding-right: 5mm;
+}
+.bi-person-circle{
+    font-size: 24px;
+    color: white;
+    display: -webkit-inline-box;
+    font-style: normal;
+}
+.bi-house-door{
+    color: white;
+    display: -webkit-inline-box;
+    font-style: normal;
+}
+.profile-icon,.home-icon{
+    opacity: 1;
+}

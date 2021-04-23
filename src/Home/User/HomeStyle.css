@@ -1,3 +1,8 @@
+.noPadding{
+    padding: 0mm 0mm 0mm 0mm;
+}
+
+
 .text-animated {
     display: inline-block;
     white-space: nowrap;

@@ -27,7 +27,6 @@ import AdminHomeApp from './Home/Admin/HomeApp';
 import HomeApp from './Home/User/HomeApp';
 import FinishSignUp from './Login/FinishSignUp';
 import SignUpApp from './Login/SignUpApp';
-import CreditCardDetails from './Home/User/CreditCards/CreditCardDetails';
 
 const Routes = () => (
     <BrowserRouter>

@@ -87,7 +87,7 @@ class SignUpApp extends Component{
         return(
             <div className="container-fluid whole">
                 <div className="container-fluid header">
-                    <h2>Welcome to Credit Card payment</h2>
+                    <h2 className="h2-signup">Welcome to Credit Card payment</h2>
                 </div>
                 <div className="container-fluid body">
                     <div className="container body-start">
@@ -133,7 +133,7 @@ class SignUpApp extends Component{
                     </div>
                 </div>
                 <div className="container-fluid fotter">
-                    <h2>Fotter</h2>
+                    <h2 className="h2-signup">Fotter</h2>
                 </div>
             </div>
         )

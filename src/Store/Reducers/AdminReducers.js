@@ -2,7 +2,8 @@ const initialState = {
     users : [],
     user : undefined,
     isAdded:undefined,
-    customers : []
+    customers : undefined,
+    creditcards : undefined
 }
 
 export default function AdminReducers(state = initialState, action) {
@@ -29,6 +30,11 @@ export default function AdminReducers(state = initialState, action) {
             return {
                 ...state,
                 customers: action.payload
+            };
+        case 'FETCH_ALL_CREDIT_CARDS_SUCCESS' :
+            return {
+                ...state,
+                creditcards: action.payload
             };
         default:
             return state;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-
+import './NavigationStyle.css';
 class NavigationHomeBar extends React.Component{
     render(){
         const userId=this.props.userId;
@@ -10,7 +10,8 @@ class NavigationHomeBar extends React.Component{
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href={`/home/${userId}`}>Home</Nav.Link>
+                        
+                        <Nav.Link href={`/home/${userId}`}><i class="bi bi-house-door home-icon"> Home</i></Nav.Link>
                         <NavDropdown title="Credit Cards" id="basic-nav-dropdown">
                             <NavDropdown.Item href={`/home/${userId}/creditcards`}>Credit Cards</NavDropdown.Item>
                             <NavDropdown.Item href={`/home/${userId}/creditcards/addNew`}>Add New Credit Card</NavDropdown.Item>
@@ -23,11 +24,14 @@ class NavigationHomeBar extends React.Component{
                         <Nav.Link href={`/home/${userId}/statements/history`}>Statements</Nav.Link>
                         <Nav.Link href={`/home/${userId}/payments/history`}>Payments</Nav.Link>
                     </Nav>
-                    <Nav className="ml-auto">
+                    <Nav className="ml-auto left-bar">
+                        <i class="bi bi-person-circle profile-icon">
                         <NavDropdown title="Profile" id="basic-nav-dropdown">
                             <NavDropdown.Item href={`/home/${userId}/personalDetails`}>Personal details</NavDropdown.Item>
                             <NavDropdown.Item href={`/home/${userId}/changePassword`}>Change Password</NavDropdown.Item>
                         </NavDropdown>
+                        </i>
+                        
                         <Nav.Link href={`/home/${userId}`}>LogOut</Nav.Link>
                         
                     </Nav>

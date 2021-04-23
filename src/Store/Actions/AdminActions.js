@@ -56,11 +56,33 @@ export const fetchAllCustomersSuccess = (customers) => {
  
 export const fetchAllCustomers = () => { 
     return (dispatch) => {
-        return Axios.get(apiUrl + "/home/customers/all")
+        return Axios.get(apiUrl + "/home/customers")
             .then(response => {
                 dispatch(fetchAllCustomersSuccess(response.data))
             })
             .catch(error => {
+                alert(error)
+                console.log(error);
+            });
+    };
+
+};
+
+export const fetchAllCreditCardsSuccess = (customers) => {
+    return {
+        type: 'FETCH_ALL_CREDIT_CARDS_SUCCESS',
+        payload : customers
+    }
+};
+ 
+export const fetchAllCreditCards = () => { 
+    return (dispatch) => {
+        return Axios.get(apiUrl + "/home/customers/creditcards")
+            .then(response => {
+                dispatch(fetchAllCreditCardsSuccess(response.data))
+            })
+            .catch(error => {
+                alert(error)
                 console.log(error);
             });
     };

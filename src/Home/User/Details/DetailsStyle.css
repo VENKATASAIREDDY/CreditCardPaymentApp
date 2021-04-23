@@ -48,6 +48,10 @@
 .person-name{
     padding-bottom: 5mm;
 }
+.person-name-update{
+    padding-bottom: 5mm;
+    min-width: -webkit-fill-available;
+}
 .person-address{
     margin-top: 10mm;
     margin-bottom: 10mm;
@@ -59,4 +63,24 @@
     font-weight: lighter;
     color: palegreen;
     vertical-align: top;
+}
+.person-address-update{
+    margin-top: 10mm;
+}
+.buttons-update{
+    padding-bottom: 10mm!important;
+    padding-top: 4mm;
+    text-align: center;
+}
+.input-personal-details{
+    background-color: transparent;
+    color: white;
+    font-weight: lighter;
+    min-width: -webkit-fill-available
+}
+.body-change{
+    min-height: 90vmin;
+}
+.body-start-change{
+    padding-top: 10vmin;
 }

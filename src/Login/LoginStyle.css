@@ -1,6 +1,6 @@
 .whole{
-    padding-left: 0vh;
-    padding-right: 0vh;
+    padding-left: 0vmin!important;
+    padding-right: 0vmin!important;
 }
 
 .col{
@@ -112,7 +112,7 @@
 .h3{
     text-align: center;
 }
-.h2-login{
+.h2-login,.h2-signup,.h2-changepassword{
     text-align: center;
 }
 .h2-admin-allusers{

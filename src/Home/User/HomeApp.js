@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavigationHomeBar from './NavigationHomeBar';
 import UserRoutes from './UserRoutes';
+import './HomeStyle.css';
 // import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 // import { bindActionCreators } from 'redux';

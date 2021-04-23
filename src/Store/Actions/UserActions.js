@@ -127,7 +127,7 @@ export const addAccountFail = (message) => {
     }
 };
 
-export const addAccount = (account,userId) => {
+export const addAccount = (userId,account) => {
     return (dispatch) => {
         return Axios.post(apiUrl + '/home/customer/accounts/' + userId ,account)
             .then(resp => {

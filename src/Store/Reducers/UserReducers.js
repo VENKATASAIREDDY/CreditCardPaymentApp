@@ -1,5 +1,6 @@
 const initialState = {
-    accounts : [],
+    // accounts : [],
+    accounts:undefined,
     // creditCards : [],
     paymentHistory : [],
     statementHistory : [],
@@ -42,7 +43,7 @@ const initialState = {
 
     isUpdatedPersonalDetails :undefined,
 
-    isFetchedAccount : undefined,
+    isFetchedAccounts : undefined,
     isFetchedBilledStatement : undefined,
     isFetchedCreditCards : undefined,
     isFetchedCreditCardDetails : undefined,
@@ -122,13 +123,13 @@ export default function AdminReducers(state = initialState, action) {
             return {
                 ...state,
                 accounts: action.payload,
-                isFetchedAccount : true
+                isFetchedAccounts : true
             };
         case 'FETCH_ACCOUNT_FAIL':
             return {
                 ...state,
                 accounts: action.payload,
-                isFetchedAccount : false
+                isFetchedAccounts : false
             };
         case 'DELETE_ACCOUNT_SUCCESS' :
             return {

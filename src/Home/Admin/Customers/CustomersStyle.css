@@ -1,0 +1,23 @@
+.main-customers-start{
+    background-color: wheat;
+}
+.bi{
+    color: whitesmoke;
+    opacity: 0.5;
+}
+.bi:hover{
+    color: white;
+    opacity: 1;
+}
+.bi:visited{
+    opacity: 0;
+}
+.bi:active{
+    opacity: 0;
+    transition-duration: 10s;
+}
+td,th{
+    padding-left: 2mm!important;
+    padding-right: 2mm!important;
+    width: max-content;
+}

@@ -12,7 +12,7 @@ class AdminHomeApp extends Component{
         return(
             <div className="container-fluid">
                 <NavigationBar userId={userId}/>
-                <div className="container home-body">
+                <div className="container-fluid home-body">
                     <AdminRoutes/>
                 </div>
             </div>

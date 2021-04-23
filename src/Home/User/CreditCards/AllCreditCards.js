@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import './CardStyle.css';
 

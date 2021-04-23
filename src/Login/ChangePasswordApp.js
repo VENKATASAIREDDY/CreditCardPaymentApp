@@ -84,7 +84,7 @@ class ChangePasswordApp extends Component{
         return(
             <div className="container-fluid whole">
                 <div className="container-fluid header">
-                    <h2>Welcome to Credit Card payment</h2>
+                    <h2 className="h2-changepassword">Welcome to Credit Card payment</h2>
                 </div>
                 <div className="container-fluid body">
                     <div className="container body-start">
@@ -130,7 +130,7 @@ class ChangePasswordApp extends Component{
                     </div>
                 </div>
                 <div className="container-fluid fotter">
-                    <h2>Fotter</h2>
+                    <h2 className="h2-changepassword">Fotter</h2>
                 </div>
             </div>
         )

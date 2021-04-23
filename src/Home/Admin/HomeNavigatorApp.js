@@ -3,7 +3,7 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, Route, Switch } from 'react-router-dom';
 import HomeApp from './HomeApp';
 import NavigationBar from './NavigationsBar';
-import AllUsers from './Users/AllUsers';
+import AllUsers from './Users/AllUsersbootstrap-table';
 class AdminHomeNavigatorApp extends Component{
     constructor(props){
         super(props);
