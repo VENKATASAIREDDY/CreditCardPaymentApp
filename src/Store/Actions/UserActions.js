@@ -272,6 +272,56 @@ export const fetchBilledStatements = (cardNumber) => {
             });
     };
 };
+export const fetchBilledStatementsByIdFail = (message) => {
+    return {
+        type : 'FETCH_BILLED_STATEMENTS_BY_ID_FAIL',
+        payload : message
+    }
+};
+
+export const fetchBilledStatementsByIdSuccess = (statements) => {
+    return {
+        type : 'FETCH_BILLED_STATEMENTS_BY_ID_SUCCESS',
+        payload : statements
+    }
+};
+
+export const fetchBilledStatementsById = (userId) => {
+    return (dispatch) => {
+        return Axios.get(apiUrl + '/home/customer/creditcard/statements/generateBill/user/' + userId)
+            .then(resp => {
+                dispatch(fetchBilledStatementsByIdSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(fetchBilledStatementsByIdFail(error.response.data))
+            });
+    };
+};
+export const fetchStatementsByIdFail = (message) => {
+    return {
+        type : 'FETCH_STATEMENTS_BY_ID_FAIL',
+        payload : message
+    }
+};
+
+export const fetchStatementsByIdSuccess = (statements) => {
+    return {
+        type : 'FETCH_STATEMENTS_BY_ID_SUCCESS',
+        payload : statements
+    }
+};
+
+export const fetchStatementsById = (userId) => {
+    return (dispatch) => {
+        return Axios.get(apiUrl + '/home/customer/creditcard/statements/history/user/' + userId)
+            .then(resp => {
+                dispatch(fetchStatementsByIdSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(fetchStatementsByIdFail(error.response.data))
+            });
+    };
+};
 
 export const fetchStatementsFail = (message) => {
     return {
@@ -295,6 +345,32 @@ export const fetchStatements = (cardNumber) => {
             })
             .catch(error => {
                 dispatch(fetchStatementsFail(error.response.data))
+            });
+    };
+};
+
+export const fetchStatementFail = (message) => {
+    return {
+        type : 'FETCH_STATEMENT_FAIL',
+        payload : message
+    }
+};
+
+export const fetchStatementSuccess = (statements) => {
+    return {
+        type : 'FETCH_STATEMENT_SUCCESS',
+        payload : statements
+    }
+};
+
+export const fetchStatement = (statementId) => {
+    return (dispatch) => {
+        return Axios.get(apiUrl + '/home/customer/creditcard/statements/' + statementId)
+            .then(resp => {
+                dispatch(fetchStatementSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(fetchStatementFail(error.response.data))
             });
     };
 };
@@ -323,7 +399,30 @@ export const fetchUnBilledStatements = (cardNumber) => {
             });
     };
 };
+export const fetchUnBilledStatementByIdFail = (message) => {
+    return {
+        type : 'FETCH_UN_BILLED_STATEMENT_BY_ID_FAIL',
+        payload : message
+    }
+};
 
+export const fetchUnBilledStatementByIdSuccess = (statement) => {
+    return {
+        type : 'FETCH_UN_BILLED_STATEMENT_BY_ID_SUCCESS',
+        payload : statement
+    }
+};
+export const fetchUnBilledStatementsById = (userId) => {
+    return (dispatch) => {
+        return Axios.get(apiUrl + '/home/customer/creditcard/statements/generateUnBilled/user/' + userId)
+            .then(resp => {
+                dispatch(fetchUnBilledStatementByIdSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(fetchUnBilledStatementByIdFail(error.response.data))
+            });
+    };
+};
 // =================================================================================================== payments
 
 export const fetchPaymentsFail = (message) => {
@@ -351,7 +450,31 @@ export const fetchPayments = (cardNumber) => {
             });
     };
 };
+export const fetchPaymentsByIdFail = (message) => {
+    return {
+        type : 'FETCH_PAYMENTS_BY_ID_FAIL',
+        payload : message
+    }
+};
 
+export const fetchPaymentsByIdSuccess = (payments) => {
+    return {
+        type : 'FETCH_PAYMENTS_BY_ID_SUCCESS',
+        payload : payments
+    }
+};
+
+export const fetchPaymentsById = (userId) => {
+    return (dispatch) => {
+        return Axios.get(apiUrl + '/home/customer/creditcard/payments/paymentHistory/user/' + userId)
+            .then(resp => {
+                dispatch(fetchPaymentsByIdSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(fetchPaymentsByIdFail(error.response.data))
+            });
+    };
+};
 export const fetchPendingBillsFail = (message) => {
     return {
         type : 'FETCH_PENDING_BILLS_FAIL',
@@ -394,12 +517,64 @@ export const doPaymentUsingUPIFail = (message) => {
 
 export const doPaymentUsingUPI = (cardNumber,payment) => {
     return (dispatch) => {
-        return Axios.POST(apiUrl + '/home/customer/creditcard/payments/pay/payUsingUPI/' + cardNumber, payment)
+        return Axios.post(apiUrl + '/home/customer/creditcard/payments/pay/payUsingUPI/' + cardNumber, payment)
             .then(resp => {
                 dispatch(doPaymentUsingUPISuccess(resp.data))
             })
             .catch(error => {
                 dispatch(doPaymentUsingUPIFail(error.response.data))
+            });
+    };
+};
+
+export const doPaymentCardUsingAccountSuccess = (payment) => {
+    return {
+        type : 'DO_PAYMENT_CARD_ACCOUNT_SUCCESS',
+        payload : payment
+    }
+};
+
+export const doPaymentCardUsingAccountFail = (message) => {
+    return {
+        type : 'DO_PAYMENT_CARD_ACCOUNT_FAIL',
+        payload : message
+    }
+};
+
+export const doPaymentCardUsingAccount = (cardNumber,accountNumber,payment) => {
+    return (dispatch) => {
+        return Axios.post(apiUrl + '/home/customer/creditcard/payments/pay/payUsingAccount/' + cardNumber+'/'+accountNumber, payment)
+            .then(resp => {
+                dispatch(doPaymentCardUsingAccountSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(doPaymentCardUsingAccountFail(error.response.data))
+            });
+    };
+};
+
+export const doPaymentOfBillUsingUPISuccess = (payment) => {
+    return {
+        type : 'DO_PAYMENT_OF_BILL_UPI_SUCCESS',
+        payload : payment
+    }
+};
+
+export const doPaymentOfBillUsingUPIFail = (message) => {
+    return {
+        type : 'DO_PAYMENT_OF_BILL_UPI_FAIL',
+        payload : message
+    }
+};
+
+export const doPaymentOfBillUsingUPI = (statementId,payment) => {
+    return (dispatch) => {
+        return Axios.post(apiUrl + '/home/customer/creditcard/payments/pendingBills/payUsingUPI/' + statementId, payment)
+            .then(resp => {
+                dispatch(doPaymentOfBillUsingUPISuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(doPaymentOfBillUsingUPIFail(error.response.data))
             });
     };
 };
@@ -419,18 +594,16 @@ export const doPaymentUsingAccountFail = (message) => {
 };
 export const doPaymentUsingAccount = (statementId,accountNumber,payment) => {
     return (dispatch) => {
-        return Axios.POST(apiUrl + '/home/customer/creditcard/payments/pendingBills/payUsingAccount/' + statementId+'/'+accountNumber, payment)
+        return Axios.post(apiUrl + '/home/customer/creditcard/payments/pendingBills/payUsingAccount/' + statementId+'/'+accountNumber, payment)
             .then(resp => {
                 dispatch(doPaymentUsingAccountSuccess(resp.data))
             })
             .catch(error => {
+
                 dispatch(doPaymentUsingAccountFail(error.response.data))
             });
     };
 };
-
-
-
 
 // =================================================================================================== Transactions
 
@@ -460,6 +633,32 @@ export const fetchTransactions = (cardNumber) => {
     };
 };
 
+export const fetchTransactionsByIdFail = (message) => {
+    return {
+        type : 'FETCH_TRANSACTIONS_BY_ID_FAIL',
+        payload : message
+    }
+};
+
+export const fetchTransactionsByIdSuccess = (transactions) => {
+    return {
+        type : 'FETCH_TRANSACTIONS_BY_ID_SUCCESS',
+        payload : transactions
+    }
+};
+
+export const fetchTransactionsById = (userId) => {
+    return (dispatch) => {
+        return Axios.get(apiUrl + '/home/customer/creditcard/transactions/history/user/' +userId)
+            .then(resp => {
+                dispatch(fetchTransactionsByIdSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(fetchTransactionsByIdFail(error.response.data))
+            });
+    };
+};
+
 export const doTransactionFail = (message) => {
     return {
         type : 'DO_TRANSACTION_FAIL',
@@ -476,12 +675,12 @@ export const doTransactionSuccess = (transaction) => {
 
 export const doTransaction = (cardNumber,amount,description) => {
     return (dispatch) => {
-        return Axios.get(apiUrl + '/home/customer/creditcard/transactions/' + cardNumber+'/'+amount+'/'+description)
+        return Axios.get(apiUrl + '/home/customer/creditcard/transactions/transact/' + cardNumber+'/'+amount+'/'+description)
             .then(resp => {
-                dispatch(doPaymentUsingAccountSuccess(resp.data))
+                dispatch(doTransactionSuccess(resp.data))
             })
             .catch(error => {
-                dispatch(doPaymentUsingAccountFail(error.response.data))
+                dispatch(doTransactionFail(error.response.data))
             });
     };
 };

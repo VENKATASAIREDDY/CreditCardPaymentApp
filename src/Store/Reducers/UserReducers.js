@@ -1,25 +1,11 @@
 const initialState = {
-    // accounts : [],
     accounts:undefined,
-    // creditCards : [],
     paymentHistory : [],
-    statementHistory : [],
+    paymentHistoryById: undefined,
+    statementHistory : undefined,
+    statementHistoryById : undefined,
     transactionHistory : [],
 
-    // personalDetails:{
-    //     userName:'',
-    //     email:'',
-    //     contactNo:'',
-    //     dob:'',
-    //     address:{
-    //         doorNo:'',
-    //         street:'',
-    //         area:'',
-    //         city:'',
-    //         state:'',
-    //         pincode:''
-    //     }
-    // },
     creditCardDetails :undefined,
     creditCards:undefined,
     personalDetails:undefined,
@@ -32,9 +18,16 @@ const initialState = {
     paymentUPI : undefined,
     isPayedAccount : undefined,
     transaction : undefined,
+    transactionHistoryById :undefined,
     billedStatements :undefined,
     unBilledStatements :undefined,
-
+    billedStatementsById:undefined,
+    unBilledStatementsById:undefined,
+    statement:undefined,
+    paymentBillUPI : undefined,
+    paymentCardAccount : undefined,
+    isPayedCardAccount :undefined,
+    isPayedBillUPI :undefined,
     isAddedCreditCard :undefined,
     isAddedAccount : undefined,
 
@@ -48,11 +41,17 @@ const initialState = {
     isFetchedCreditCards : undefined,
     isFetchedCreditCardDetails : undefined,
     isFetchedPersonalDetails : undefined,
+    isFetchedStatement:undefined,
     isFetchedStatements :undefined,
+    isFetchedStatementsById : undefined,
     isFetchedUnBilledStatements :undefined,
+    isFetchedBilledStatementById :undefined,
+    isFetchedUnBilledStatementsById:undefined,
     isFetchedPayments :undefined,
+    isFetchedPaymentsById:undefined,
     isFetchedPendingBills :undefined,
-    isFetchedTransaction :undefined
+    isFetchedTransaction :undefined,
+    isFetchedTransactionsById : undefined
 }
 
 export default function AdminReducers(state = initialState, action) {
@@ -179,6 +178,18 @@ export default function AdminReducers(state = initialState, action) {
                 billedStatements: action.payload,
                 isFetchedBilledStatement : false
             };
+        case 'FETCH_BILLED_STATEMENTS_BY_ID_SUCCESS' :
+            return {
+                ...state,
+                billedStatementsById: action.payload,
+                isFetchedBilledStatementById : true
+            };
+        case 'FETCH_BILLED_STATEMENTS_BY_ID_FAIL':
+            return {
+                ...state,
+                billedStatementsById: action.payload,
+                isFetchedBilledStatementById : false
+            };
         case 'FETCH_STATEMENTS_SUCCESS' :
             return {
                 ...state,
@@ -191,6 +202,30 @@ export default function AdminReducers(state = initialState, action) {
                 statementHistory : action.payload,
                 isFetchedStatements : false
             };
+            case 'FETCH_STATEMENT_SUCCESS' :
+            return {
+                ...state,
+                statement: action.payload,
+                isFetchedStatement : true
+            };
+        case 'FETCH_STATEMENT_FAIL':
+            return {
+                ...state,
+                statement : action.payload,
+                isFetchedStatement : false
+            };
+            case 'FETCH_STATEMENTS_BY_ID_SUCCESS' :
+            return {
+                ...state,
+                statementHistoryById : action.payload,
+                isFetchedStatementsById : true
+            };
+        case 'FETCH_STATEMENTS_BY_ID_FAIL':
+            return {
+                ...state,
+                statementHistoryById : action.payload,
+                isFetchedStatementsById : false
+            }; 
         case 'FETCH_UN_BILLED_STATEMENT_SUCCESS' :
             return {
                 ...state,
@@ -203,6 +238,18 @@ export default function AdminReducers(state = initialState, action) {
                 unBilledStatements : action.payload,
                 isFetchedUnBilledStatements : false
             };
+        case 'FETCH_UN_BILLED_STATEMENT_BY_ID_SUCCESS' :
+            return {
+                ...state,
+                unBilledStatementsById : action.payload,
+                isFetchedUnBilledStatementsById : true
+            };
+        case 'FETCH_UN_BILLED_STATEMENT_BY_ID_FAIL':
+            return {
+                ...state,
+                unBilledStatementsById : action.payload,
+                isFetchedUnBilledStatementsById : false
+            };
         case 'FETCH_PAYMENTS_SUCCESS' :
             return {
                 ...state,
@@ -214,6 +261,18 @@ export default function AdminReducers(state = initialState, action) {
                 ...state,
                 paymentHistory : action.payload,
                 isFetchedPayments : false
+            };
+        case 'FETCH_PAYMENTS_BY_ID_SUCCESS' :
+            return {
+                ...state,
+                paymentHistoryById : action.payload,
+                isFetchedPaymentsById : true
+            };
+        case 'FETCH_PAYMENTS_BY_ID_FAIL':
+            return {
+                ...state,
+                paymentHistoryById : action.payload,
+                isFetchedPaymentsById : false
             };
         case 'FETCH_PENDING_BILLS_SUCCESS' :
             return {
@@ -239,6 +298,32 @@ export default function AdminReducers(state = initialState, action) {
                 paymentUPI : action.payload,
                 isPayedUPI : false
             };
+        case 'DO_PAYMENT_CARD_ACCOUNT_SUCCESS' :
+            return {
+                ...state,
+                paymentCardAccount : action.payload,
+                isPayedCardAccount : true
+            };
+        case 'DO_PAYMENT_CARD_ACCOUNT_FAIL':
+            return {
+                ...state,
+                paymentCardAccount : action.payload,
+                isPayedCardAccount : false
+            };
+            
+        case 'DO_PAYMENT_OF_BILL_UPI_SUCCESS' :
+            return {
+                ...state,
+                paymentBillUPI : action.payload,
+                isPayedBillUPI : true
+            };
+        case 'DO_PAYMENT_OF_BILL_UPI_FAIL':
+            return {
+                ...state,
+                paymentBillUPI : action.payload,
+                isPayedBillUPI : false
+            };
+            
         case 'DO_PAYMENT_ACCOUNT_SUCCESS' :
             return {
                 ...state,
@@ -263,18 +348,30 @@ export default function AdminReducers(state = initialState, action) {
                 transactionHistory : action.payload,
                 isFetchedTransaction : false
             };
-            case 'DO_TRANSACTION_SUCCESS':
+            case 'FETCH_TRANSACTIONS_BY_ID_SUCCESS' :
                 return {
                     ...state,
-                    transaction : action.payload,
-                    isTransaction : false
+                    transactionHistoryById : action.payload,
+                    isFetchedTransactionsById : true
                 };
-            case 'DO_TRANSACTION_FAIL' :
+            case 'FETCH_TRANSACTIONS_BY_ID_FAIL':
                 return {
                     ...state,
-                    transaction : action.payload,
-                    isTransaction : true
+                    transactionHistoryById : action.payload,
+                    isFetchedTransactionsById : false
                 };
+        case 'DO_TRANSACTION_SUCCESS':
+            return {
+                ...state,
+                transaction : action.payload,
+                isTransaction : true
+            };
+        case 'DO_TRANSACTION_FAIL' :
+            return {
+                ...state,
+                transaction : action.payload,
+                isTransaction : false
+            };
         default:
             return state;
     }

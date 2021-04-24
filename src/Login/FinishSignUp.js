@@ -226,7 +226,7 @@ class FinishSignUp extends Component{
                                         <span className="help-block">*Required fields</span>
                                     </div>
                                 </div>
-                                <div className="row bttn">
+                                <div className="row bttn-signUp">
                                     <button type="submit" className="btn btn-primary signUp-bttn">Finish SignUp</button>
                                 </div>
                             </form>

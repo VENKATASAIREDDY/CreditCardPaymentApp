@@ -9,7 +9,7 @@
     animation: floatText 20s infinite linear;
     text-indent: 100vh;
     position: absolute;
-    padding-left: 100vmax;
+    padding-left: 100%;
 }
 .text-animated:hover {
     animation-play-state: paused;
@@ -24,4 +24,47 @@
     margin-bottom: 5mm;
     padding-top: 15mm;
     padding-bottom: 15mm;
+}
+
+.billed-statements{
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 15px;
+    padding-bottom: 0mm!important;
+    margin-bottom: 8mm!important;
+}
+.billed-statements:hover{
+    background-color: white;
+}
+.bill-row{
+    padding-bottom: 2mm;
+    padding-top: 2mm;
+}
+.label-bill{
+    font-weight: bold;
+    min-width: fit-content;
+}
+.bill-value{
+    min-width: fit-content;
+}
+.unBilled-statements{
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 15px;
+    padding-bottom: 0mm!important;
+    margin-bottom: 8mm!important;
+}
+.transaction-block{
+    border-radius: 10px;
+    padding-top: 2mm;
+    padding-bottom: 2mm;
+}
+.buttons-transact{
+    text-align: center;
+}
+.bttn-send{
+    margin-right: 5mm;
+}
+.bttn-send:hover{
+    font-weight: bold;
 }

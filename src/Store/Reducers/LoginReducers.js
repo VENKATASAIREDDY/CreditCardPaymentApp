@@ -3,6 +3,7 @@ const initialState = {
         role:undefined,
         userId:undefined
     },
+    failMessage:undefined,
     isAuthUser: undefined
 }
 
@@ -18,7 +19,8 @@ export default function LoginReducer(state = initialState, action) {
         case 'LOGIN_FAILURE':
             return {
                 ...state,
-                isAuthUser:false
+                isAuthUser:false,
+                failMessage:action.payload
             };
         default:
             return state;

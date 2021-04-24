@@ -9,9 +9,10 @@ export const loginSuccess = (login) => {
     }
 };
  
-export const loginFailure = () => {
+export const loginFailure = (message) => {
     return {
-        type: 'LOGIN_FAILURE'
+        type: 'LOGIN_FAILURE',
+        payload:message
     }
 };
  
@@ -23,10 +24,15 @@ export const doLogin = (payload) => {
     return (dispatch) => {
         return Axios.post(apiUrl + "/login/signIn", data)
             .then(response => {
-                dispatch(loginSuccess(response.data))
+                Axios.get(apiUrl+"/home/customers/"+response.data.userId).then(resp=>{
+                    dispatch(loginSuccess(response.data));
+                }).catch(error =>{
+                    dispatch(loginFailure(error.response.data));
+                })
+                // dispatch(loginSuccess(response.data))
             })
             .catch(error => {
-                dispatch(loginFailure());
+                dispatch(loginFailure(error.response.data));
             });
     };
 

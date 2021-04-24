@@ -27,7 +27,7 @@ class AllAccounts extends Component{
                                     <div className="col-sm-6 account-details">
                                         <Card className="account-card">
                                             <div className="row">
-                                                <div className="col-sm-12 logo-account"><i class="fa fa-bank"></i></div>
+                                                <div className="col-sm-12 logo-account"><i class="fa fa-bank fa-bank-all"></i></div>
                                             </div>
                                             <div className="row account-control">
                                                 <div className="col-sm-1"></div>

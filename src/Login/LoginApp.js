@@ -52,6 +52,7 @@ class LoginApp extends Component{
             password:this.state.password
         };
         if(this.validate()){
+            
             this.props.loginAction.doLogin(user);
         }
     }
@@ -79,7 +80,7 @@ class LoginApp extends Component{
                         <div className="row message">
                             <div className="col-md-4">
                                 {
-                                    (this.props.isAuthUser===false) && <div class="alert alert-danger" role="alert">Login Failed</div>
+                                    (this.props.isAuthUser===false) && <div class="alert alert-danger" role="alert">Login Failed {this.props.failMessage}</div>
                                 }
                                 {
                                     (this.props.isAuthUser===true) && <div class="alert alert-success" role="alert">Login Successful</div>
@@ -127,7 +128,8 @@ class LoginApp extends Component{
 function mapStateToProps(state) {
     return {
         login: state.LoginReducers.login,
-        isAuthUser : state.LoginReducers.isAuthUser
+        isAuthUser : state.LoginReducers.isAuthUser,
+        failMessage:state.LoginReducers.failMessage
     }
 }  
  

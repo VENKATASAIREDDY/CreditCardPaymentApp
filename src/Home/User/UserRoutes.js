@@ -9,6 +9,7 @@ import StatementHistory from './Statements/StatementHistory';
 import TransactionApp from './Transactions/TransactionApp';
 import TransactionHistory from './Transactions/TransactionHistory';
 import PayBillApp from './Payments/PayBillApp';
+import PayUnBillApp from './Payments/PayUnBillApp';
 import PaymentHistory from './Payments/PaymentHistory';
 import AllCreditCards from './CreditCards/AllCreditCards';
 import AddCreditCardApp from './CreditCards/AddCreditCardApp';
@@ -32,8 +33,8 @@ const UserRoutes = () => (
             <Route path='/home/:userId/transactions/do' component={TransactionApp} exact />
             <Route path='/home/:userId/transactions/history' component={TransactionHistory} exact />
 
-            <Route path='/home/:userId/payments/payBill/PayUPI' component={PayBillApp} exact />
-            <Route path='/home/:userId/payments/payBill/PayAccount' component={PayBillApp} exact />
+            <Route path='/home/:userId/payments/payBill/:statementId' component={PayBillApp} exact />
+            <Route path='/home/:userId/payments/payUnBill/:cardNumber' component={PayUnBillApp} exact />
             <Route path='/home/:userId/payments/history' component={PaymentHistory} exact />
 
             <Route path='/home/:userId/creditcards' component={AllCreditCards} exact />

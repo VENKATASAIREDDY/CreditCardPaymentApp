@@ -7,15 +7,14 @@ import * as userAction from '../../../Store/Actions/UserActions';
 import { Image } from 'react-bootstrap';
 import upi from '../../../Images/upi.jpg';
 
-class PayBill extends Component {
+class PayUnBill extends Component {
 
     constructor() {
         super();
         this.state = {
             amount: '',
             method: '',
-            accountNumber: '',
-            cardNumber: '',
+            accountNumber:'',
             errors: {}
         }
     }
@@ -26,7 +25,7 @@ class PayBill extends Component {
     }
     componentDidMount() {
         const { userAction, match } = this.props;
-        userAction.fetchStatement(match.params.statementId);
+        userAction.fetchUnBilledStatements(match.params.cardNumber);
         userAction.fetchAccounts(match.params.userId);
     }
     validate = () => {
@@ -61,36 +60,28 @@ class PayBill extends Component {
     }
     doPayment = event => {
         event.preventDefault();
-        var cardNumber;
 
-        const { match, userAction, isFetchedStatement, statement, accounts, isFetchedAccounts } = this.props;
+        const { match, userAction, unBilledStatements, isFetchedUnBilledStatements, accounts, isFetchedAccounts } = this.props;
 
-        if (isFetchedStatement) {
-            cardNumber = statement.cardNumber;
-        }
         const payment = {
             amount: this.state.amount,
-            method: this.state.method,
-            cardNumber: cardNumber
+            method: this.state.method
         };
         if (this.validate()) {
             if (payment.method === "BANKACCOUNT") {
                 // doPaymentUsingAccount = (statementId,accountNumber,payment)
-                userAction.doPaymentUsingAccount(match.params.statementId, this.state.accountNumber, payment);
+                userAction.doPaymentCardUsingAccount(match.params.cardNumber, this.state.accountNumber, payment);
             } else if (payment.method === "UPI") {
-                // doPaymentOfBillUsingUPI = (statementId,payment)
-                userAction.doPaymentOfBillUsingUPI(match.params.statementId, payment)
+                userAction.doPaymentUsingUPI(match.params.cardNumber, payment)
             }
 
         }
     }
 
     render() {
-        const { isFetchedStatement, statement, paymentAccount, isPayedAccount, isPayedBillUPI, paymentBillUPI, isFetchedAccounts, accounts } = this.props;
+        const { isFetchedUnBilledStatements,unBilledStatements,paymentUPI, isPayedUPI, paymentCardAccount, isPayedCardAccount, isFetchedAccounts, accounts } = this.props;
 
-
-
-        if (isFetchedStatement) {
+        if (isFetchedUnBilledStatements) {
             return (
                 <div className=" container-fluid top-padding">
                     <div className="conatiner-fluid heading-payments">
@@ -98,10 +89,10 @@ class PayBill extends Component {
                             <div className="col-sm-12">
                                 <div>
                                     {
-                                        (isPayedAccount === true || isPayedBillUPI === true) && <div class="alert alert-success" role="alert">Paied Successful</div>
+                                        (isPayedCardAccount === true || isPayedUPI === true) && <div class="alert alert-success" role="alert">Paied Successful</div>
                                     }
                                     {
-                                        (isPayedAccount === false || isPayedBillUPI === false) && <div class="alert alert-danger" role="alert">Payment Failed {(isPayedAccount === false) && paymentAccount} {(isPayedBillUPI === false) && paymentBillUPI}</div>
+                                        (isPayedCardAccount === false || isPayedUPI === false) && <div class="alert alert-danger" role="alert">Payment Failed {(isPayedCardAccount === false) && paymentCardAccount} {(isPayedUPI === false) && paymentUPI}</div>
                                     }
                                 </div>
                             </div>
@@ -114,16 +105,16 @@ class PayBill extends Component {
                                 <div className="row">
                                     <div className="col-sm-5">
                                         <div className="col-sm-12 bg-light login-body text-dark">
-                                            <h3 className="text h3">Pay Bill</h3>
+                                            <h3 className="text h3">Payment Gateway</h3>
                                             <form className="login-form" onSubmit={this.doPayment} type="POST">
                                                 <div className="form-group form-payment">
                                                     <label htmlFor="cardNumber">Card Number</label>
-                                                    <input type="text" name="cardNumber" id="cardNumber" className="form-control" placeholder="amount" defaultValue={statement.cardNumber} onChange={this.handleInputChange} disabled />
+                                                    <input type="text" name="cardNumber" id="cardNumber" className="form-control" placeholder="amount" defaultValue={unBilledStatements.cardNumber} onChange={this.handleInputChange} disabled />
                                                     <span className="text-danger">{this.state.errors.userId}</span>
                                                 </div>
                                                 <div className="form-group form-payment">
                                                     <label htmlFor="amount">Amount</label>
-                                                    <input type="text" name="amount" id="amount" className="form-control" placeholder="amount" defaultValue={statement.dueAmount} onChange={this.handleInputChange} />
+                                                    <input type="text" name="amount" id="amount" className="form-control" placeholder="amount" defaultValue={unBilledStatements.dueAmount} onChange={this.handleInputChange} />
                                                     <span className="text-danger">{this.state.errors.userId}</span>
                                                 </div>
                                                 <div className="row form-group form-payment">
@@ -177,14 +168,14 @@ class PayBill extends Component {
 }
 function mapStateToProps(state) {
     return {
-        statement: state.UserReducers.statement,
-        isFetchedStatement: state.UserReducers.isFetchedStatement,
-        paymentAccount: state.UserReducers.paymentAccount,
-        isPayedAccount: state.UserReducers.isPayedAccount,
+        unBilledStatements : state.UserReducers.unBilledStatements,
+        isFetchedUnBilledStatements : state.UserReducers.isFetchedUnBilledStatements,
         accounts: state.UserReducers.accounts,
         isFetchedAccounts: state.UserReducers.isFetchedAccounts,
-        paymentBillUPI: state.UserReducers.paymentBillUPI,
-        isPayedBillUPI: state.UserReducers.isPayedBillUPI,
+        paymentUPI : state.UserReducers.paymentUPI,
+        isPayedUPI : state.UserReducers.isPayedUPI,
+        paymentCardAccount : state.UserReducers.paymentCardAccount,
+        isPayedCardAccount : state.UserReducers.isPayedCardAccount,
     }
 }
 
@@ -194,4 +185,4 @@ function mapDispatchToProps(dispatch) {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PayBill);
+export default connect(mapStateToProps, mapDispatchToProps)(PayUnBill);

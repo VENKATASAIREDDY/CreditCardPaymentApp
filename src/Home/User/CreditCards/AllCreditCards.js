@@ -30,10 +30,12 @@ class AllCreditCards extends Component{
                 <div className="container-fluid total-view">
                     <div className="container p-3 body-creditcards">
                         <div className="row justify-content-center">
-                            <div className="col-sm-6">
+                            <div className="col-sm-12">
                                 <div className="container p-3 justify-content-center body-cardDetails">
+                                    <div className="row">
                                     { 
                                     creditCards.map((card)=>
+                                        <div className="col-sm-6">
                                             <Card className="text-dark card">
                                                 <div className="row">
                                                     <div className="col-sm-12 cardtitle">Credit Card</div>
@@ -60,12 +62,14 @@ class AllCreditCards extends Component{
                                                 </div>
                                                 
                                             </Card>
+                                            </div>
                                         )
                                     }
+                                    </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-sm-4">
-                                        <Link className="btn btn-primary" to={`/home/${userId}/creditcards/addNew`}>Add New Card</Link>
+                                    <div className="col-sm-3">
+                                        <Link className="btn btn-primary bttn-add-card" to={`/home/${userId}/creditcards/addNew`}>Add New Card</Link>
                                     </div> 
                                 </div>
                             </div>

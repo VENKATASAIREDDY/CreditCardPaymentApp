@@ -1,0 +1,55 @@
+.statement-body{
+    justify-content: center;
+}
+.body-control{
+    justify-content: center;
+}
+.upi-radio{
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0mm;
+}
+.upi-radio + .image-upi{
+    cursor: pointer;
+}
+.image-upi :hover{
+    width: 16mm;
+    height: 11mm;
+    outline: 2px solid #ff0000;
+}
+.image-upi{
+    width: 15mm;
+    height:10mm;
+}
+.fa-bank-account-logo{
+    font-size:28px!important;
+    color: brown;
+    
+}
+.account-radio{
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.account-radio + .fa-bank-account-logo{
+    cursor: pointer;
+}
+.fa-bank-account-logo:hover{
+    font-size:28px!important;
+    /* color: green; */
+}
+.form-payment-account{
+    display: contents;
+}
+.select-account{
+    padding-bottom: 2mm;
+    margin-bottom: 5mm;
+}
+.account-radio:hover{
+    color:hotpink
+}
+[type=radio]:checked +.radio-logos {
+    outline: 2px solid #0f0;
+  }
