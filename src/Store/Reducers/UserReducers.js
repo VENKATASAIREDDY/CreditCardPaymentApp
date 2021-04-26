@@ -36,6 +36,9 @@ const initialState = {
 
     isUpdatedPersonalDetails :undefined,
 
+    transactionHistoryByStatement : undefined,
+    isFetchedTransactionsByStatement : undefined,
+
     isFetchedAccounts : undefined,
     isFetchedBilledStatement : undefined,
     isFetchedCreditCards : undefined,
@@ -348,18 +351,30 @@ export default function AdminReducers(state = initialState, action) {
                 transactionHistory : action.payload,
                 isFetchedTransaction : false
             };
-            case 'FETCH_TRANSACTIONS_BY_ID_SUCCESS' :
-                return {
-                    ...state,
-                    transactionHistoryById : action.payload,
-                    isFetchedTransactionsById : true
-                };
-            case 'FETCH_TRANSACTIONS_BY_ID_FAIL':
-                return {
-                    ...state,
-                    transactionHistoryById : action.payload,
-                    isFetchedTransactionsById : false
-                };
+        case 'FETCH_TRANSACTIONS_BY_ID_SUCCESS' :
+            return {
+                ...state,
+                transactionHistoryById : action.payload,
+                isFetchedTransactionsById : true
+            };
+        case 'FETCH_TRANSACTIONS_BY_ID_FAIL':
+            return {
+                ...state,
+                transactionHistoryById : action.payload,
+                isFetchedTransactionsById : false
+            };
+        case 'FETCH_TRANSACTIONS_BY_STATEMENT_SUCCESS' :
+            return {
+                ...state,
+                transactionHistoryByStatement : action.payload,
+                isFetchedTransactionsByStatement : true
+            };
+        case 'FETCH_TRANSACTIONS_BY_STATEMENT_FAIL':
+            return {
+                ...state,
+                transactionHistoryByStatement : action.payload,
+                isFetchedTransactionsByStatement : false
+            };
         case 'DO_TRANSACTION_SUCCESS':
             return {
                 ...state,

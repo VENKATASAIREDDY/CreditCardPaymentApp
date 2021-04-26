@@ -21,3 +21,25 @@ td,th{
     padding-right: 2mm!important;
     width: max-content;
 }
+.caption-table-customers{
+    border-radius: 10px;
+    text-align:center;
+    color: blueviolet;
+    border :1px solid blue;
+    padding: 1mm;
+    margin-top: 5mm;
+}
+.search-label{
+    width: -webkit-fill-available;
+}
+.btn-default{
+    color: white;
+    background-color: blue;
+    opacity: 0.6;
+}
+.btn-default:hover{
+    opacity: 1;
+    font-weight: 900;
+    color: white;
+    background-color: blue;
+}

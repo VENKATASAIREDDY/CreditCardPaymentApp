@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.react-bootstrap-table table {
+  table-layout: unset!important;
+  min-width: max-content;
+}

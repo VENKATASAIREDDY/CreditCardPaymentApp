@@ -8,3 +8,109 @@
     border-radius: 10px;
 
 }
+
+.view-statement-transactions{
+    background-color: unset;
+    width: -webkit-fill-available;
+}
+.view-statement-transactions-head{
+    background-color: unset;
+    color: black;
+}
+.view-statement-transactions-body,.view-statement-personal-body{
+    background-color: transparent;
+    width: -webkit-fill-available;
+    
+}
+.h2-statements-view{
+    display: inline;
+    justify-content: space-between;
+}
+.amount-row-value{
+    text-align: right;
+}
+.time-row-value{
+    text-align: center;
+}
+.time-row-head{
+    text-align: center;
+}
+.date-row-value{
+    text-align: center;
+}
+.date-row-head{
+    text-align: center;
+}
+.descrip-row-head{
+    text-align-last: left;
+}
+.total-amount{
+    font-size: 18px;
+    font-weight: bold;
+}
+.bill-amount{
+    font-size: 20px;
+    font-weight: bold;
+}
+.hr-line-bold{
+    background-color: black;
+}
+.total-amount-value{
+    font-size: 18px;
+    font-weight: 500;
+    color: brown;
+}
+.paid-amount-value{
+    font-size: 17px;
+    font-weight: 500;
+    color: darkblue;
+}
+.bill-amount-value{
+    font-size: 20px;
+    font-weight: 600;   
+}
+.due-amount-value{
+    font-size: 20px;
+    font-weight: 700;
+    color: darkred;
+}
+.row-personal-details{
+    display: -webkit-box;
+}
+.view-statement-personal{
+    margin-left: 10mm;
+}
+.h2-statements-view-right{
+    text-align-last: right;
+    color: darkblue;
+}
+.bank-name{
+    text-align-last: left;
+    color: blue;
+}
+.row-card-details{
+    display: -webkit-box;
+    text-align-last: right;
+}
+.card-details-label{
+    font-weight: 500;
+}
+.row-summary-details{
+    display: -webkit-box;
+    width: -webkit-fill-available;
+    padding-left: 2mm;
+    padding-right: 2mm;
+}
+.row-statement-summary{
+    display: -webkit-box;
+    font-weight: bold;
+    font-size: 20px;
+    padding-left:4mm ;
+}
+.row-billing-details{
+    display: -webkit-box;
+}
+.row-billing-details-right{
+    display: -webkit-box;
+    text-align-last: right;
+}

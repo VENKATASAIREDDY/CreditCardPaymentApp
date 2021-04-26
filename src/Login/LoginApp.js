@@ -58,6 +58,15 @@ class LoginApp extends Component{
     }
 
     render(){
+        if(localStorage.getItem("currentUser")){
+            const {userId,role}=JSON.parse(localStorage.getItem("currentUser"));
+            if(role==="ADMIN"){
+                <Redirect to={`/admin/home/${userId}`}/>
+            }
+            if(role==="USER"){
+                return <Redirect to={`/home/${userId}`}/>            
+            }
+        }
         const {login, isAuthUser} = this.props;
         if (login.role !== undefined && isAuthUser) {
             if (login.role === "ADMIN" && isAuthUser) {

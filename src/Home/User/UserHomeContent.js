@@ -110,7 +110,7 @@ class UserHome extends Component {
                                                                 <div className="row justify-content-center bill-row">
                                                                     <div className="col-lg-4 label-bill">Name</div>
                                                                     <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value">{statement.customerName}</div>
+                                                                    <div className="col-lg-5 bill-value bill-value-name">{statement.customerName}</div>
                                                                 </div>
                                                                 <div className="row justify-content-center bill-row">
                                                                     <div className="col-lg-4 label-bill">Due Date</div>
@@ -156,7 +156,7 @@ class UserHome extends Component {
                                                                 <div className="row justify-content-center bill-row">
                                                                     <div className="col-lg-4 label-bill">Name</div>
                                                                     <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value">{statement.customerName}</div>
+                                                                    <div className="col-lg-5 bill-value bill-value-name">{statement.customerName}</div>
                                                                 </div>
                                                                 <div className="row justify-content-center bill-row">
                                                                     <div className="col-lg-4 label-bill">Bill Date</div>
@@ -171,6 +171,7 @@ class UserHome extends Component {
                                                                 <div className="row justify-content-center bill-row">
                                                                     {
                                                                         (isFetchedBilledStatementById===true) &&
+                                                                        (document.getElementById(statement.cardNumber)!=null) &&
                                                                         (document.getElementById(statement.cardNumber).innerHTML!=="0") ? <Link className="btn btn-primary disabled" to={`/home/${this.props.match.params.userId}/payments/payUnBill/${statement.cardNumber}`}>Pay Later</Link>:<Link className="btn btn-primary" to={`/home/${this.props.match.params.userId}/payments/payUnBill/${statement.cardNumber}`}>Pay Now</Link>
                                                                     }
                                                                     

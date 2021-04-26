@@ -6,65 +6,62 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { connect } from 'react-redux';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as adminActions from '../../../Store/Actions/AdminActions';
 
-class AllUsers extends Component{
+class AllUsers extends Component {
 
     componentDidMount() {
         this.props.adminActions.fetchAllUsers();
     }
 
-    render(){
-        const users=this.props.users;
+    render() {
+        const users = this.props.users;
         const columns = [
-            {dataField:'userId', text:'USER ID', sort:true},
-            {dataField:'role', text:'ROLE', sort:true},
+            { dataField: 'userId', text: 'USER ID', sort: true },
+            { dataField: 'role', text: 'ROLE', sort: true },
             {
                 dataField: "userId",
-                text:"ACTION",
+                text: "ACTION",
                 formatter: (rowContent, row) => {
-                  return (
-                      <div className="row">
-                          <div className="col-sm-5">
-                                <button type="button" className="btn btn-outline-primary" onClick={e => {
-                                    alert(row.userId);
-                                    }}>
-                                    <i class="bi bi-eye-fill"></i> View                                    
-                                </button>
+                    return (
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <Link to={`/admin/home/${this.props.match.params.userId}/customerDetails/${row.userId}`} className="btn btn-outline-primary" onClick={e => {
+                                }}>
+                                    <i class="bi bi-eye-fill"></i> View
+                              </Link>
                             </div>
-                            <div className="col-sm-5">
+                            <div className="col-sm-3">
                                 <span class="oi oi-eye"></span>
-                                <button type="button" className="btn btn-outline-danger" onClick={e => {
-                                    alert(row.userId);
-                                    console.log(row.userId);
-                                    }}>
+                                <Link to={`/admin/home/${this.props.match.params.userId}/delete/${row.userId}`} className="btn btn-outline-danger" onClick={e => {
+                                }}>
                                     <i class="bi bi-trash-fill"></i> Delete
-                                </button>
-                            </div>                        
-                      </div>
-                    
-                  );
+                                </Link>
+                            </div>
+                        </div>
+
+                    );
                 }
-              }
+            }
         ];
         const defaultSorted = [{
-            dataField:'userId',
-            order:'asc'
+            dataField: 'userId',
+            order: 'asc'
         }];
-        const pagination =paginationFactory({
-            page:1,
-            sizePerPage:7,
-            lastPageText:'>>',
-            firstPageText:'<<',
-            nextPageText:'>',
-            prePageText:'<',
-            showTotal:true,
-            alwaysShowAllBtns:true,
+        const pagination = paginationFactory({
+            page: 1,
+            sizePerPage: 7,
+            lastPageText: '>>',
+            firstPageText: '<<',
+            nextPageText: '>',
+            prePageText: '<',
+            showTotal: true,
+            alwaysShowAllBtns: true,
         });
-        const {SearchBar, ClearSearchButton } = Search;
-        return(
+        const { SearchBar, ClearSearchButton } = Search;
+        return (
             <div className="container">
                 <div className="conatiner table-heading">
                     <h2 className="h2-admin-allusers">Manage Users</h2>
@@ -77,23 +74,23 @@ class AllUsers extends Component{
                         columns={columns}
                         search
                     >{
-                        props => (
-                            <div className="row">
-                                <div className="col-sm-12 table-search">
-                                    <SearchBar {...props.searchProps}/>
-                                    <ClearSearchButton {...props.searchProps}/>
+                            props => (
+                                <div className="row">
+                                    <div className="col-sm-12 table-search">
+                                        <SearchBar {...props.searchProps} />
+                                        <ClearSearchButton {...props.searchProps} />
+                                    </div>
+                                    <div className="col-sm-12 table-body">
+                                        <BootstrapTable
+                                            defaultSorted={defaultSorted}
+                                            pagination={pagination}
+                                            {...props.baseProps}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="col-sm-12 table-body">
-                                <BootstrapTable
-                                    defaultSorted={defaultSorted}
-                                    pagination={pagination}
-                                    {...props.baseProps}
-                                />
-                            </div>
-                            </div>
-                            
-                        )
-                    }
+
+                            )
+                        }
 
                     </ToolkitProvider>
 
@@ -146,7 +143,7 @@ class AllUsers extends Component{
             //                 <tr>
             //                     {/* <td colSpan="5"><Link to={`/addUser`}>Add New User</Link></td> */}
             //                 </tr>
-                        
+
             //         </tbody>
             //     </table>
             // </div>
@@ -159,7 +156,7 @@ class AllUsers extends Component{
 //                 <div className="container">
 //                     <h2>All Users</h2>
 //                 </div>
-                
+
 //             </div>
 //         )
 //     }
@@ -168,12 +165,12 @@ function mapStateToProps(state) {
     return {
         users: state.AdminReducers.users
     }
-}  
- 
-function mapDispatchToProps (dispatch) {
-   return {
-        adminActions : bindActionCreators(adminActions,dispatch)
-   }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        adminActions: bindActionCreators(adminActions, dispatch)
+    }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(AllUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(AllUsers);

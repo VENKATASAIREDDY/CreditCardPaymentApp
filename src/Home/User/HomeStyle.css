@@ -44,8 +44,11 @@
     font-weight: bold;
     min-width: fit-content;
 }
-.bill-value{
-    min-width: fit-content;
+
+.bill-value-name{
+    /* min-width: fit-content; */
+    padding-right: unset;
+
 }
 .unBilled-statements{
     background-color: whitesmoke;

@@ -659,6 +659,32 @@ export const fetchTransactionsById = (userId) => {
     };
 };
 
+export const fetchTransactionsByStatementFail = (message) => {
+    return {
+        type : 'FETCH_TRANSACTIONS_BY_STATEMENT_FAIL',
+        payload : message
+    }
+};
+
+export const fetchTransactionsByStatementSuccess = (transactions) => {
+    return {
+        type : 'FETCH_TRANSACTIONS_BY_STATEMENT_SUCCESS',
+        payload : transactions
+    }
+};
+
+export const fetchTransactionsByStatement = (statementId) => {
+    return (dispatch) => {
+        return Axios.get(apiUrl + '/home/customer/creditcard/transactions/statement/' +statementId)
+            .then(resp => {
+                dispatch(fetchTransactionsByStatementSuccess(resp.data))
+            })
+            .catch(error => {
+                dispatch(fetchTransactionsByStatementFail(error.response.data))
+            });
+    };
+};
+
 export const doTransactionFail = (message) => {
     return {
         type : 'DO_TRANSACTION_FAIL',

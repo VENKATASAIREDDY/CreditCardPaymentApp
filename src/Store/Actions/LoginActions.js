@@ -37,3 +37,9 @@ export const doLogin = (payload) => {
     };
 
 };
+
+export const logout = () => {
+	return {
+		type: 'LOGOUT'
+	}
+};

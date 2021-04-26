@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './CustomersStyle.css';
+import '../Customers/CustomersStyle.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as adminActions from '../../../Store/Actions/AdminActions';
@@ -8,73 +8,69 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import { Link } from 'react-router-dom';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
-class AllCustomers extends Component{
+class StatementsByCardNumber extends Component{
 
     componentDidMount() {
-        this.props.adminActions.fetchAllCustomers();
+        const{adminActions,match}=this.props;
+        adminActions.fetchStatements(match.params.cardNumber);
     }
 
     render(){
         const columns = [{
-            dataField : 'userId',
-            text : 'Customer ID',
-            sort : true
-        },{
-            dataField : 'userName',
-            text : 'Customer Name',
-            sort :true
+            dataField : 'cardNumber',
+            text : 'Credit Card Number'
         },
         {
-            dataField : 'contactNo',
-            text : 'Contact Number',
+            dataField : 'customerName',
+            text : 'Customer Name'
+        },
+        {
+            dataField : 'billDate',
+            text : 'Billed Date',
+            sort :true,
+            filter : textFilter()
+        },
+        {
+            dataField : 'dueDate',
+            text : 'Due Date',
+            sort : true,
+            filter : textFilter()
+        },
+        {
+            dataField : 'billAmount',
+            text : 'Bill Amount',
             sort : true
         },
         {
-            dataField : 'email',
-            text : 'Email ID',
+            dataField : 'dueAmount',
+            text : 'Due Amount',
             sort : true
-        },
-        {
-            dataField : 'userId',
-            text : 'Action',
-            formatter: (rowContent, row) => {
-                return (
-                    <div className="row">
-                        <div className="col-sm-5">
-                              <Link to={`/admin/home/${this.props.match.params.userId}/customerDetails/${row.userId}`} className="btn btn-outline-primary" onClick={e => {
-                                  }}>
-                                  <i class="bi bi-eye-fill"></i> View                                    
-                              </Link>
-                          </div>                        
-                    </div>
-                  
-                );
-              }
         }
     ];
 
     const { SearchBar, ClearSearchButton } = Search;
 
     const defaultSorted = [{
-        dataField: 'userId',
+        dataField: 'dueAmount',
         order: 'desc'
     }];
     const options = {
-        sizePerPage:5,
-        hideSizePerPage:true
+        sizePerPage:10,
+        hideSizePerPage:true,
+        hidePageListOnlyOnePage: true
     }
 
-    const Caption =()=> <h3 className="caption-table-customers">Manage Customers</h3>
-    
-    if(this.props.customers!==undefined){
+    const Caption =()=> <h3 className="caption-table-customers">Statements of Credit card</h3>
+    const {statementHistory,isFetchedStatements}=this.props;
+    if(isFetchedStatements!==undefined){
         return(
             <div className="container-fluid p3">
                 <ToolkitProvider
                     bootstrap4
                     keyField='userId'
-                    data={this.props.customers}
+                    data={statementHistory}
                     columns={columns}
                     search
                 >
@@ -97,6 +93,7 @@ class AllCustomers extends Component{
                                         defaultSorted = {defaultSorted}
                                         {...props.baseProps}
                                         pagination={paginationFactory(options)}
+                                        filter={filterFactory()}
                                         striped
                                         hover
                                         wrapperClasses="table-responsive"
@@ -106,18 +103,6 @@ class AllCustomers extends Component{
                         )
                     }
                 </ToolkitProvider>
-                
-                {/* <BootstrapTable 
-                    bootstrap4 
-                    keyField='userId' 
-                    data={this.props.customers}
-                    columns={columns}
-                    caption={<Caption/>}
-                    defaultSorted = {defaultSorted}
-                    pagination={ paginationFactory() }
-                    striped
-                    hover
-                /> */}
             </div>            
         )
     }else{
@@ -131,7 +116,8 @@ class AllCustomers extends Component{
 }
 function mapStateToProps(state) {
     return {
-        customers: state.AdminReducers.customers
+        statementHistory: state.AdminReducers.statementHistory,
+        isFetchedStatements : state.AdminReducers.isFetchedStatements
     }
 }  
  
@@ -141,4 +127,4 @@ function mapDispatchToProps (dispatch) {
    }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(AllCustomers);
+export default connect(mapStateToProps,mapDispatchToProps)(StatementsByCardNumber);

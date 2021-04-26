@@ -132,6 +132,7 @@ class StatementHistory extends Component{
                                     <th>Due Date<Link class="bi bi-arrow-down dob-asc" onClick={this.sortDueDate}></Link><Link class="bi bi-arrow-up dob-desc" onClick={this.sortDueDateDes}></Link></th>
                                     <th>Bill Amount<Link class="bi bi-arrow-down city-asc" onClick={this.sortBillAmount}></Link><Link class="bi bi-arrow-up city-desc" onClick={this.sortBillAmountDes}></Link></th>
                                     <th>Due Amount<Link class="bi bi-arrow-down state-asc" onClick={this.sortDueAmount}></Link><Link class="bi bi-arrow-up state-desc" onClick={this.sortDueAmountDes}></Link></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -145,7 +146,7 @@ class StatementHistory extends Component{
                                             <td>{statement.dueDate}</td>
                                             <td>{statement.billAmount}</td>
                                             <td>{statement.dueAmount}</td>
-                                            
+                                            <td><Link className="btn btn-primary" to={`/home/${this.props.match.params.userId}/statements/billed/${statement.cardNumber}/${statement.statementId}`}>View</Link></td>
                                         </tr>    
                                     )
                                 }

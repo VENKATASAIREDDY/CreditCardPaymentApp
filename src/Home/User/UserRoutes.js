@@ -26,7 +26,7 @@ const UserRoutes = () => (
         <Switch>
             <Route path='/home/:userId' component={UserHome} exact />
 
-            <Route path='/home/:userId/statements/billed' component={BilledStatement} exact />
+            <Route path='/home/:userId/statements/billed/:cardNumber/:statementId' component={BilledStatement} exact />
             <Route path='/home/:userId/statements/unBilled' component={UnBilledStatement} exact />
             <Route path='/home/:userId/statements/history' component={StatementHistory} exact />
 

@@ -12,20 +12,20 @@ class NavigationBar extends React.Component{
                     <Nav className="mr-auto">
                         <Nav.Link href={`/admin/home/${userId}`}>Home</Nav.Link>
                         <Nav.Link href={`/admin/home/${userId}/creditCards`}>Credit Cards</Nav.Link>
-                        <Nav.Link href={`/admin/home/${userId}/transactions`}>Transactions</Nav.Link>
+                        <Nav.Link href={`/admin/home/${userId}/transactions`}>Transaction</Nav.Link>
                         <Nav.Link href={`/admin/home/${userId}/statements`}>Statements</Nav.Link>
                         <Nav.Link href={`/admin/home/${userId}/payments`}>Payments</Nav.Link>
-                        <NavDropdown title="Customers" id="basic-nav-dropdown">
+                    <NavDropdown title="Customers" id="basic-nav-dropdown">
                             <NavDropdown.Item href={`/admin/home/${userId}/allCustomers`}>View All Customers</NavDropdown.Item>
                             <NavDropdown.Item href={`/admin/home/${userId}/addUser`}>Add New Customer</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav className="ml-auto">
                         <NavDropdown title="Account" id="basic-nav-dropdown">
-                            <NavDropdown.Item href={`/admin/home/${userId}/allCustomers`}>Personal details</NavDropdown.Item>
-                            <NavDropdown.Item href={`/admin/home/${userId}/addCustomer`}>Change Password</NavDropdown.Item>
+                            <NavDropdown.Item href={`/admin/home/${userId}/personalDetails`}>Personal details</NavDropdown.Item>
+                            <NavDropdown.Item href={`/admin/home/${userId}/personalDetails/changePassword`}>Change Password</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href={`/admin/home/${userId}`}>LogOut</Nav.Link>
+                        <Nav.Link href={`/logout`}>LogOut</Nav.Link>
                         
                     </Nav>
                 </Navbar.Collapse>

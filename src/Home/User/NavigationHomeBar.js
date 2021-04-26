@@ -32,7 +32,7 @@ class NavigationHomeBar extends React.Component{
                         </NavDropdown>
                         </i>
                         
-                        <Nav.Link href={`/home/${userId}`}>LogOut</Nav.Link>
+                        <Nav.Link href={`/logout`}>LogOut</Nav.Link>
                         
                     </Nav>
                 </Navbar.Collapse>

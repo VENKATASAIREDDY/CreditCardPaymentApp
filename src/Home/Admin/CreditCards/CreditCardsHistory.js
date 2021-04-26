@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './CustomersStyle.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as adminActions from '../../../Store/Actions/AdminActions';
@@ -8,73 +7,100 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import { Link } from 'react-router-dom';
 
-class AllCustomers extends Component{
+
+class CreditCardsHistory extends Component{
 
     componentDidMount() {
-        this.props.adminActions.fetchAllCustomers();
+        this.props.adminActions.fetchAllCreditCards();
     }
 
     render(){
         const columns = [{
-            dataField : 'userId',
+            dataField : 'customerId',
             text : 'Customer ID',
-            sort : true
-        },{
-            dataField : 'userName',
-            text : 'Customer Name',
-            sort :true
+            sort : true,
+            filter : textFilter()
         },
         {
-            dataField : 'contactNo',
-            text : 'Contact Number',
-            sort : true
+            dataField : 'cardNumber',
+            text : 'Credit Card Number',
+            sort : true,
+            filter : textFilter()
         },
         {
-            dataField : 'email',
-            text : 'Email ID',
-            sort : true
-        },
-        {
-            dataField : 'userId',
-            text : 'Action',
+            dataField: "cardNumber",
+            text: "Statements",
             formatter: (rowContent, row) => {
                 return (
                     <div className="row">
-                        <div className="col-sm-5">
-                              <Link to={`/admin/home/${this.props.match.params.userId}/customerDetails/${row.userId}`} className="btn btn-outline-primary" onClick={e => {
-                                  }}>
-                                  <i class="bi bi-eye-fill"></i> View                                    
-                              </Link>
-                          </div>                        
+                        <div className="col-sm-12">
+                            <Link to={`/admin/home/${this.props.match.params.userId}/statements/history/${row.cardNumber}`} className="btn btn-outline-primary" onClick={e => {
+                            }}>
+                                <i class="bi bi-eye-fill"></i> View Statements
+                          </Link>
+                        </div>
                     </div>
-                  
                 );
-              }
+            }
+        },
+        {
+            dataField: "cardNumber",
+            text: "Transactions",
+            formatter: (rowContent, row) => {
+                return (
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <Link to={`/admin/home/${this.props.match.params.userId}/transactions/history/${row.cardNumber}`} className="btn btn-outline-primary" onClick={e => {
+                            }}>
+                                <i class="bi bi-eye-fill"></i> View Transactions
+                          </Link>
+                        </div>
+                    </div>
+                );
+            }
+        },
+        {
+            dataField: "cardNumber",
+            text: "Payments",
+            formatter: (rowContent, row) => {
+                return (
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <Link to={`/admin/home/${this.props.match.params.userId}/payments/history/${row.cardNumber}`} className="btn btn-outline-primary" onClick={e => {
+                            }}>
+                                <i class="bi bi-eye-fill"></i> View Paymentss
+                          </Link>
+                        </div>
+                    </div>
+                );
+            }
         }
     ];
 
     const { SearchBar, ClearSearchButton } = Search;
 
     const defaultSorted = [{
-        dataField: 'userId',
+        dataField: 'dueAmount',
         order: 'desc'
     }];
     const options = {
         sizePerPage:5,
-        hideSizePerPage:true
+        hideSizePerPage:true,
+        hidePageListOnlyOnePage: true
     }
 
-    const Caption =()=> <h3 className="caption-table-customers">Manage Customers</h3>
-    
-    if(this.props.customers!==undefined){
+    const Caption =()=> <h3 className="caption-table-customers">Credit Cards of Customers</h3>
+    const {creditcards}=this.props;
+    if(creditcards!==undefined){
         return(
             <div className="container-fluid p3">
                 <ToolkitProvider
                     bootstrap4
                     keyField='userId'
-                    data={this.props.customers}
+                    data={creditcards}
                     columns={columns}
                     search
                 >
@@ -97,6 +123,7 @@ class AllCustomers extends Component{
                                         defaultSorted = {defaultSorted}
                                         {...props.baseProps}
                                         pagination={paginationFactory(options)}
+                                        filter={filterFactory()}
                                         striped
                                         hover
                                         wrapperClasses="table-responsive"
@@ -106,18 +133,6 @@ class AllCustomers extends Component{
                         )
                     }
                 </ToolkitProvider>
-                
-                {/* <BootstrapTable 
-                    bootstrap4 
-                    keyField='userId' 
-                    data={this.props.customers}
-                    columns={columns}
-                    caption={<Caption/>}
-                    defaultSorted = {defaultSorted}
-                    pagination={ paginationFactory() }
-                    striped
-                    hover
-                /> */}
             </div>            
         )
     }else{
@@ -131,7 +146,7 @@ class AllCustomers extends Component{
 }
 function mapStateToProps(state) {
     return {
-        customers: state.AdminReducers.customers
+        creditcards: state.AdminReducers.creditcards
     }
 }  
  
@@ -141,4 +156,4 @@ function mapDispatchToProps (dispatch) {
    }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(AllCustomers);
+export default connect(mapStateToProps,mapDispatchToProps)(CreditCardsHistory);
