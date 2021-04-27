@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './PaymentStyle.css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
-import { Image } from 'react-bootstrap';
 import upi from '../../../Images/upi.jpg';
+import { Redirect } from 'react-router';
 
 class PayBill extends Component {
 
@@ -39,6 +38,9 @@ class PayBill extends Component {
         if (!amount) {
             isValid = false;
             errors["amount"] = "Enter the amount";
+        }else if(!amount.match("^[1-9][0-9.]{0,14}")){
+            isValid = false;
+            errors["amount"] = "Enter valid Amount";
         }
 
         if (!method) {
@@ -63,7 +65,8 @@ class PayBill extends Component {
         event.preventDefault();
         var cardNumber;
 
-        const { match, userAction, isFetchedStatement, statement, accounts, isFetchedAccounts } = this.props;
+        const { match, userAction, isFetchedStatement, statement } = this.props;
+
 
         if (isFetchedStatement) {
             cardNumber = statement.cardNumber;
@@ -75,10 +78,8 @@ class PayBill extends Component {
         };
         if (this.validate()) {
             if (payment.method === "BANKACCOUNT") {
-                // doPaymentUsingAccount = (statementId,accountNumber,payment)
                 userAction.doPaymentUsingAccount(match.params.statementId, this.state.accountNumber, payment);
             } else if (payment.method === "UPI") {
-                // doPaymentOfBillUsingUPI = (statementId,payment)
                 userAction.doPaymentOfBillUsingUPI(match.params.statementId, payment)
             }
 
@@ -88,7 +89,9 @@ class PayBill extends Component {
     render() {
         const { isFetchedStatement, statement, paymentAccount, isPayedAccount, isPayedBillUPI, paymentBillUPI, isFetchedAccounts, accounts } = this.props;
 
-
+        if(isPayedBillUPI || isPayedAccount){
+            return <Redirect to={`/home/${this.props.match.params.userId}`}/>
+        }
 
         if (isFetchedStatement) {
             return (
@@ -98,10 +101,10 @@ class PayBill extends Component {
                             <div className="col-sm-12">
                                 <div>
                                     {
-                                        (isPayedAccount === true || isPayedBillUPI === true) && <div class="alert alert-success" role="alert">Paied Successful</div>
+                                        (isPayedAccount === true || isPayedBillUPI === true) && <div className="alert alert-success" role="alert">Paied Successful</div>
                                     }
                                     {
-                                        (isPayedAccount === false || isPayedBillUPI === false) && <div class="alert alert-danger" role="alert">Payment Failed {(isPayedAccount === false) && paymentAccount} {(isPayedBillUPI === false) && paymentBillUPI}</div>
+                                        (isPayedAccount === false || isPayedBillUPI === false) && <div className="alert alert-danger" role="alert">Payment Failed {(isPayedAccount === false) && paymentAccount} {(isPayedBillUPI === false) && paymentBillUPI}</div>
                                     }
                                 </div>
                             </div>
@@ -119,17 +122,18 @@ class PayBill extends Component {
                                                 <div className="form-group form-payment">
                                                     <label htmlFor="cardNumber">Card Number</label>
                                                     <input type="text" name="cardNumber" id="cardNumber" className="form-control" placeholder="amount" defaultValue={statement.cardNumber} onChange={this.handleInputChange} disabled />
-                                                    <span className="text-danger">{this.state.errors.userId}</span>
                                                 </div>
                                                 <div className="form-group form-payment">
                                                     <label htmlFor="amount">Amount</label>
                                                     <input type="text" name="amount" id="amount" className="form-control" placeholder="amount" defaultValue={statement.dueAmount} onChange={this.handleInputChange} />
-                                                    <span className="text-danger">{this.state.errors.userId}</span>
+                                                    <span className="text-danger">{this.state.errors.amount}</span>
                                                 </div>
                                                 <div className="row form-group form-payment">
                                                     <label htmlFor="method">Payment Method</label>
-                                                    <div className="col-sm-4"><label><input type="radio" id="method" name="method" value="UPI" className="upi-radio" onChange={this.handleInputChange} /><img className="image-upi radio-logos" src={upi}></img></label></div>
-                                                    <div className="col-sm-4"><label><input type="radio" id="method" name="method" value="BANKACCOUNT" className="account-radio" onChange={this.handleInputChange} /><i class="fa fa-bank fa-bank-account-logo radio-logos"></i></label></div>
+                                                    <div className="col-sm-4"><label><input type="radio" id="method" name="method" value="UPI" className="upi-radio" onChange={this.handleInputChange} /><img className="image-upi radio-logos" src={upi} alt="UPI"></img></label></div>
+                                                    {
+                                                        (isFetchedAccounts) && <div className="col-sm-4"><label><input type="radio" id="method" name="method" value="BANKACCOUNT" className="account-radio" onChange={this.handleInputChange} /><i className="fa fa-bank fa-bank-account-logo radio-logos"></i></label></div>
+                                                    }
                                                     <span className="text-danger">{this.state.errors.method}</span>
                                                 </div>
                                                 <div className="row form-group form-payment-account">

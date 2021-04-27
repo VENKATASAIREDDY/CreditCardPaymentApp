@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Card, Spinner } from 'react-bootstrap';
+import { Card, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import * as userAction from '../../../Store/Actions/UserActions';
@@ -17,12 +17,12 @@ class CreditCardDetails extends Component{
     }
 
     render(){
-        const userId=this.props.match.params.userId;
-        var userName=""
+        // const userId=this.props.match.params.userId;
+        // var userName=""
         const {isFetchedCreditCardDetails,creditCardDetails,isFetchedPersonalDetails,personalDetails}=this.props;
-        if(isFetchedPersonalDetails){
-            userName=personalDetails.userName;
-        }
+        // if(isFetchedPersonalDetails){
+        //     userName=personalDetails.userName;
+        // }
         if(isFetchedCreditCardDetails && isFetchedPersonalDetails){
         return(
             
@@ -32,10 +32,11 @@ class CreditCardDetails extends Component{
                 </div>
                 <div className="container-fluid body-addcard">
                     <div className="row">
-                        <div className="col-md-6 card-image">
+                        <div className="col-lg-6 card-image">
                             <Card className="text-dark card">
                                 <div className="row">
-                                    <div className="col-sm-12 cardtitle">Credit Card</div>
+                                    <div className="col-sm-6 card-bank-name">{creditCardDetails.bankName}</div>
+                                    <div className="col-sm-6 cardtitle">Credit Card</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-sm-12 cardpadding"></div>
@@ -48,13 +49,15 @@ class CreditCardDetails extends Component{
                                     
                                 </div>
                                 <div className="row">
-                                <div className="col-sm-8 cardname">{personalDetails.userName}</div>
-                                    
-                                    <div className="col-sm-4 cardtype">{creditCardDetails.cardName}</div>
+                                    <div className="col-sm-7 cardname">{personalDetails.userName}</div>
+                                    <div className="col-sm-5 cardtype">{creditCardDetails.cardName}</div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-12 cardType-right">{creditCardDetails.cardType}</div>
                                 </div>
                             </Card>
                         </div>
-                        <div className="col-md-6 shadow-lg card-text-details">
+                        <div className="col-lg-6 shadow-lg card-text-details">
                             <div className="row">
                                 <div className="col-sm-4"><p className="label-card">Card Number</p></div>
                                 <div className="col-sm-1"><p className="label-card">:</p></div>
@@ -95,6 +98,17 @@ class CreditCardDetails extends Component{
                                 <div className="col-sm-1"><p className="label-card">:</p></div>
                                 <div className="col-sm-6"><p className="value-card">{creditCardDetails.usedLimit}</p></div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row card-bttn-area">
+                        <div className="col-sm-4">
+                            <Link to={`/home/${this.props.match.params.userId}/statements/billed/${creditCardDetails.cardNumber}`} className="btn btn-primary card-bttn-details">Statement History</Link>
+                        </div>
+                        <div className="col-sm-4">
+                            <Link to={`/home/${this.props.match.params.userId}/transactions/history/${creditCardDetails.cardNumber}`} className="btn btn-primary card-bttn-details">Transaction History</Link>
+                        </div>
+                        <div className="col-sm-4">
+                            <Link to={`/home/${this.props.match.params.userId}/payments/history/${creditCardDetails.cardNumber}`} className="btn btn-primary card-bttn-details">Payment History</Link>
                         </div>
                     </div>
                 </div>

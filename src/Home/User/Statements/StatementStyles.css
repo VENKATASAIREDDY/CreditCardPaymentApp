@@ -1,14 +1,19 @@
 .top-statements{
-    padding-top: 2vmin;
-    margin-top: 2vmin;
+    margin-left: 15mm;
+    margin-right: 15mm;
+    min-width: fit-content;
+    max-inline-size: -webkit-fill-available;
 }
 
 .heading-statements{
     text-align-last: center;
     border-radius: 10px;
-
 }
 
+.table-area{
+    min-width: -webkit-fill-available;
+    justify-content: center;
+}
 .view-statement-transactions{
     background-color: unset;
     width: -webkit-fill-available;

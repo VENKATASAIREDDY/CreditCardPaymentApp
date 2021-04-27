@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './AccountsStyle.css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
 
@@ -37,7 +36,7 @@ class AddAccount extends Component{
           errors["accountNumber"] = "Enter Account Number";
         }else if(!accountNumber.match("^[1-9][0-9]{8,17}$")){
             isValid = false;
-          errors["accountNumber"] = "Enter valid Account Number";
+          errors["accountNumber"] = "Enter valid Account Number of min 9 Length";
         }
     
         if (!accountName) {
@@ -56,7 +55,10 @@ class AddAccount extends Component{
           if (!accountBalance) {
             isValid = false;
             errors["accountBalance"] = "Enter Account Balance";
-          }  
+          }else if(!accountBalance.match("^[0-9.]{1,14}$")){
+              isValid = false;
+              errors["accountBalance"] = "Enter valid Account Balance"
+          }
 
         this.setState({
           errors: errors
@@ -86,10 +88,10 @@ class AddAccount extends Component{
                     <div className="row">
                         <div className="col-sm-6 status">
                             {
-                                (this.props.isAddedAccount===false) && <div class="alert alert-danger" role="alert">{this.props.account}</div>
+                                (this.props.isAddedAccount===false) && <div className="alert alert-danger" role="alert">{this.props.account}</div>
                             }
                             {
-                                (this.props.isAddedAccount===true) && <div class="alert alert-success " role="alert">Account {this.props.account.accountNumber} is Added Successfully</div>
+                                (this.props.isAddedAccount===true) && <div className="alert alert-success " role="alert">Account {this.props.account.accountNumber} is Added Successfully</div>
                             }
                         </div>
 
@@ -100,7 +102,7 @@ class AddAccount extends Component{
                     <hr className="bg-light"/>
                     <div className="row add-account-body">
                         <div className="col-sm-3 logo-account-add">
-                            <i class="fa fa-bank fa-bank-account"></i>
+                            <i className="fa fa-bank fa-bank-account"></i>
                         </div>
                         <div className="col-sm-8 account-form">
                             <div className="row form-heading">
@@ -129,11 +131,11 @@ class AddAccount extends Component{
                                             <div className="col-sm-4 form-label-add-account">Account Type</div>
                                             <div className="col-sm-1">:</div>
                                             <div className="col-sm-6 form-input-add-account">
-                                                <select name="accountType" className="input-add-account" onChange={this.handleInputChange} >
-                                                    <option disabled selected>Account Type*</option>
-                                                    <option value="SAVINGS">SAVINGS</option>
-                                                    <option value="CURRENT">CURRENT</option>
-                                                    <option value="JOINT">JOINT</option>
+                                                <select name="accountType" className="input-add-account" defaultValue="default" onChange={this.handleInputChange} >
+                                                    <option disabled value="default">Account Type*</option>
+                                                    <option value="SAVINGS" className="text-dark">SAVINGS</option>
+                                                    <option value="CURRENT" className="text-dark">CURRENT</option>
+                                                    <option value="JOINT" className="text-dark">JOINT</option>
                                                 </select>
                                                 <span className="text-danger">{this.state.errors.accountType}</span>
                                             </div>

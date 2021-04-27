@@ -1,6 +1,6 @@
 import React ,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as adminAction from '../../../Store/Actions/AdminActions';
 
@@ -71,15 +71,18 @@ class AddUser extends Component{
     }
 
     render(){
+        if(this.props.isAdded){
+            return(<Redirect to={`/admin/home/${this.props.match.params.userId}`}/>)
+        }
         return(
             <div className="container p-3">
                 <div className="row message">
                     <div className="col-md-6">
                         {
-                            (this.props.isAdded===false) && <div class="alert alert-danger" role="alert">{this.props.user}</div>
+                            (this.props.isAdded===false) && <div className="alert alert-danger" role="alert">{this.props.user}</div>
                         }
                         {
-                            (this.props.isAdded===true) && <div class="alert alert-success" role="alert">{this.props.user}</div>
+                            (this.props.isAdded===true) && <div className="alert alert-success" role="alert">{this.props.user}</div>
                         }
                     </div>
                 </div>
@@ -96,8 +99,8 @@ class AddUser extends Component{
                                 <span className="text-danger">{this.state.errors.password}</span>
                             </div>
                             <div className="form-group">
-                                <select name="role" className="form-control" onChange={this.handleInputChange} >
-                                    <option disabled selected>Role*</option>
+                                <select name="role" className="form-control" onChange={this.handleInputChange} defaultValue="default" >
+                                    <option disabled value="default">Role*</option>
                                     <option value="USER">USER</option>
                                     <option value="ADMIN">ADMIN</option>
                                 </select>
@@ -110,9 +113,6 @@ class AddUser extends Component{
                         </form>
                     </div>
                 </div>              
-                <div className="row justify-content-center">
-                    <Link to={`/admin/home/${this.props.match.params.userId}`}>back</Link>
-                </div>
             </div>
         )
     }

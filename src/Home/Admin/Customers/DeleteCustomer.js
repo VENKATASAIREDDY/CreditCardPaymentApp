@@ -23,7 +23,7 @@ class DeleteCustomer extends Component {
         } else {
             return(
             <div className="container">
-                <div class="row spinner-border text-danger"></div>
+                <div className="row spinner-border text-danger"></div>
             </div>
             )
             

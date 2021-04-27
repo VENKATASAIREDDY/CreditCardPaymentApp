@@ -14,6 +14,7 @@ class UserHome extends Component {
             userId: '',
             amount: '',
             description: '',
+            purpose:'',
             cardNumber: '',
             statements: [],
             errors: {}
@@ -30,18 +31,32 @@ class UserHome extends Component {
         let amount = this.state.amount;
         let description = this.state.description;
         let cardNumber = this.state.cardNumber;
+        let purpose=this.state.purpose;
         let errors = {};
         let isValid = true;
 
         if (!amount) {
             isValid = false;
             errors["amount"] = "Please enter the amount";
+        }else if(amount==="0"){
+            errors["amount"] = "Please enter some Amount";
+        }else if(!amount.match("^[1-9][0-9.]{0,6}$")) {
+            errors["amount"] = "Please enter some amount more than Rs.1"
         }
 
-        if (!description) {
+        if (!purpose) {
             isValid = false;
-            errors["description"] = "Perpose of sending";
+            errors["purpose"] = "Purpose of sending";
+        }else if(purpose==="others"){
+            if(!description){
+                isValid = false;
+                errors["description"] = "please enter purpose"
+            }else if(!description.match("[A-z][A-Z a-z]{2,30}$")){
+                isValid="false";
+                errors["description"] = "Enter valid Description"
+            }
         }
+
         if (!cardNumber) {
             isValid = false;
             errors["cardNumber"] = "choose card number";
@@ -62,7 +77,12 @@ class UserHome extends Component {
             cardNumber: this.state.cardNumber
         };
         if (this.validate()) {
-            this.props.userAction.doTransaction(user.cardNumber, user.amount, user.description);
+            if(!user.description){
+                this.props.userAction.doTransaction(user.cardNumber,user.amount,this.state.purpose);
+            }else{
+                this.props.userAction.doTransaction(user.cardNumber, user.amount, user.description);
+            }
+            
         }
     }
 
@@ -76,10 +96,9 @@ class UserHome extends Component {
 
     render() {
         const { billedStatementsById, isFetchedBilledStatementById, unBilledStatementsById, isFetchedUnBilledStatementsById,
-            isFetchedPersonalDetails, personalDetails, creditCards, isFetchedCreditCards, transaction, isTransaction } = this.props;
-        // alert(isTransaction)
-        return (
-            <div className="container-fluid bg-dark text-light">
+            isFetchedPersonalDetails, personalDetails, creditCards, isFetchedCreditCards, isTransaction } = this.props;
+            return (
+            <div className="container-fluid bg-dark text-light home-main-body">
                 <div className="row scroll-message">
                     {
                         (isFetchedPersonalDetails === true) && <h3 className="text-animated scroll-message">Welcome to Credit Card Payment {personalDetails.userName} . Pay Your Bills Online. Stay Home Stay Safe </h3>
@@ -98,36 +117,36 @@ class UserHome extends Component {
                                         <div className="container p-3 justify-content-center body-accountDetails">
                                             {
                                                 billedStatementsById.map((statement) =>
-                                                    <div className="container p-3 billed-statements">
-                                                        <div className="row justify-content-center">
-                                                            <div className="col-lg-12 account-details billed-statements">
-                                                                <h4 className="h4 text-center">Billed Statement</h4>
-                                                                <div className="row justify-content-center bill-row">
+                                                    <div className="container p-3 billed-statements" key={statement.statementId}>
+                                                        <div className="row justify-content-center" key={statement.statementId}>
+                                                            <div className="col-lg-12 account-details billed-statements" key={statement.statementId}>
+                                                                <h4 className="h4 text-center" key={statement.statementId}>Billed Statement</h4>
+                                                                <div className="row justify-content-center bill-row" >
                                                                     <div className="col-lg-4 label-bill">Card Number</div>
-                                                                    <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value">{statement.cardNumber}</div>
+                                                                    <div className="col-lg-1" >:</div>
+                                                                    <div className="col-lg-5 bill-value" key={statement.statementId}>{statement.cardNumber}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
-                                                                    <div className="col-lg-4 label-bill">Name</div>
-                                                                    <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value bill-value-name">{statement.customerName}</div>
+                                                                <div className="row justify-content-center bill-row" >
+                                                                    <div className="col-lg-4 label-bill" >Name</div>
+                                                                    <div className="col-lg-1" >:</div>
+                                                                    <div className="col-lg-5 bill-value bill-value-name" key={statement.statementId}>{statement.customerName}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
-                                                                    <div className="col-lg-4 label-bill">Due Date</div>
-                                                                    <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value">{statement.dueDate}</div>
+                                                                <div className="row justify-content-center bill-row" >
+                                                                    <div className="col-lg-4 label-bill" >Due Date</div>
+                                                                    <div className="col-lg-1" >:</div>
+                                                                    <div className="col-lg-5 bill-value" key={statement.statementId}>{statement.dueDate}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
-                                                                    <div className="col-lg-4 label-bill">Due Amount</div>
-                                                                    <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 text-danger bill-value" id={statement.cardNumber}>{statement.dueAmount}</div>
+                                                                <div className="row justify-content-center bill-row" >
+                                                                    <div className="col-lg-4 label-bill" >Due Amount</div>
+                                                                    <div className="col-lg-1" >:</div>
+                                                                    <div className="col-lg-5 text-danger bill-value" id={statement.cardNumber} key={statement.statementId}>{statement.dueAmount}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
+                                                                <div className="row justify-content-center bill-row" >
                                                                     {
-                                                                        (statement.dueAmount === 0) && <Link className="btn btn-primary disabled" to={`/home/${this.props.match.params.userId}/payments/payBill/${statement.statementId}`}>Bill Paid</Link>
+                                                                        (statement.dueAmount === 0) && <Link className="btn btn-primary disabled" to={`/home/${this.props.match.params.userId}/payments/payBill/${statement.statementId}`} key={statement.statementId}>Bill Paid</Link>
                                                                     }
                                                                     {
-                                                                        (statement.dueAmount > 0) && <Link className="btn btn-primary" to={`/home/${this.props.match.params.userId}/payments/payBill/${statement.statementId}`}>Pay Bill</Link>
+                                                                        (statement.dueAmount > 0) && <Link className="btn btn-primary" to={`/home/${this.props.match.params.userId}/payments/payBill/${statement.statementId}`} key={statement.statementId}>Pay Bill</Link>
                                                                     }
                                                                 </div>
                                                             </div>
@@ -144,35 +163,35 @@ class UserHome extends Component {
                                         <div className="container p-3 justify-content-center body-accountDetails">
                                             {
                                                 unBilledStatementsById.map((statement) =>
-                                                    <div className="container p-3 unBilled-statements">
-                                                        <div className="row justify-content-center">
-                                                            <div className="col-lg-12 account-details unBilled-statements">
-                                                                <h4 className="h4 text-center">UnBilled Statement</h4>
-                                                                <div className="row justify-content-center bill-row">
-                                                                    <div className="col-lg-4 label-bill">Card Number</div>
-                                                                    <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5">{statement.cardNumber}</div>
+                                                    <div className="container p-3 unBilled-statements" key={statement.statementId}>
+                                                        <div className="row justify-content-center" key={statement.statementId}>
+                                                            <div className="col-lg-12 account-details unBilled-statements" key={statement.statementId}>
+                                                                <h4 className="h4 text-center" key={statement.statementId}>UnBilled Statement</h4>
+                                                                <div className="row justify-content-center bill-row" >
+                                                                    <div className="col-lg-4 label-bill" >Card Number</div>
+                                                                    <div className="col-lg-1" >:</div>
+                                                                    <div className="col-lg-5" key={statement.statementId}>{statement.cardNumber}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
-                                                                    <div className="col-lg-4 label-bill">Name</div>
+                                                                <div className="row justify-content-center bill-row" >
+                                                                    <div className="col-lg-4 label-bill" >Name</div>
                                                                     <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value bill-value-name">{statement.customerName}</div>
+                                                                    <div className="col-lg-5 bill-value bill-value-name" key={statement.statementId}>{statement.customerName}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
-                                                                    <div className="col-lg-4 label-bill">Bill Date</div>
-                                                                    <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value">{statement.billDate}</div>
+                                                                <div className="row justify-content-center bill-row" >
+                                                                    <div className="col-lg-4 label-bill" >Bill Date</div>
+                                                                    <div className="col-lg-1" >:</div>
+                                                                    <div className="col-lg-5 bill-value" key={statement.statementId}>{statement.billDate}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
-                                                                    <div className="col-lg-4 label-bill">Used Amount</div>
-                                                                    <div className="col-lg-1">:</div>
-                                                                    <div className="col-lg-5 bill-value">{statement.billAmount}</div>
+                                                                <div className="row justify-content-center bill-row" >
+                                                                    <div className="col-lg-4 label-bill" >Used Amount</div>
+                                                                    <div className="col-lg-1" >:</div>
+                                                                    <div className="col-lg-5 bill-value" key={statement.statementId}>{statement.billAmount}</div>
                                                                 </div>
-                                                                <div className="row justify-content-center bill-row">
+                                                                <div className="row justify-content-center bill-row" >
                                                                     {
                                                                         (isFetchedBilledStatementById===true) &&
                                                                         (document.getElementById(statement.cardNumber)!=null) &&
-                                                                        (document.getElementById(statement.cardNumber).innerHTML!=="0") ? <Link className="btn btn-primary disabled" to={`/home/${this.props.match.params.userId}/payments/payUnBill/${statement.cardNumber}`}>Pay Later</Link>:<Link className="btn btn-primary" to={`/home/${this.props.match.params.userId}/payments/payUnBill/${statement.cardNumber}`}>Pay Now</Link>
+                                                                        (document.getElementById(statement.cardNumber).innerHTML!=="0") ? <Link className="btn btn-primary disabled" to={`/home/${this.props.match.params.userId}/payments/payUnBill/${statement.cardNumber}`}key={statement.statementId}>Pay Later</Link>:<Link className="btn btn-primary" to={`/home/${this.props.match.params.userId}/payments/payUnBill/${statement.cardNumber}`}key={statement.statementId}>Pay Now</Link>
                                                                     }
                                                                     
                                                                 </div>
@@ -195,10 +214,10 @@ class UserHome extends Component {
                                 <div className="col-sm-12">
                                     <div>
                                         {
-                                            (isTransaction === true) && <div class="alert alert-success" role="alert">Transaction Successful</div>
+                                            (isTransaction === true) && <div className="alert alert-success" role="alert">Transaction Successful</div>
                                         }
                                         {
-                                            (isTransaction === false) && <div class="alert alert-danger" role="alert">Transaction Failed</div>
+                                            (isTransaction === false) && <div className="alert alert-danger" role="alert">Transaction Failed</div>
                                         }
                                     </div>
                                     <div className="container-fluid no-padding">
@@ -213,23 +232,28 @@ class UserHome extends Component {
 
 
                                                     <div className="form-group">
-                                                        <select name="description" className="input-transaction form-control" onChange={this.handleInputChange} >
-                                                            <option disabled selected>Perpose of sending</option>
+                                                        <select name="purpose" className="input-transaction form-control" defaultValue="default" onChange={this.handleInputChange} >
+                                                            <option disabled value="default">Purpose of sending</option>
                                                             <option value="ToFriend">To Friend</option>
                                                             <option value="Mobile Recharge">Mobile Recharge</option>
                                                             <option value="To Shop">To Shop</option>
                                                             <option value="Fee">Fee</option>
                                                             <option value="others">others</option>
                                                         </select>
-                                                        <span className="text-danger">{this.state.errors.description}</span>
+                                                        <span className="text-danger">{this.state.errors.purpose}</span>
                                                     </div>
-
-
+                                                    {
+                                                        (this.state.purpose==="others") && 
+                                                            <div className="form-group">
+                                                                <input type="text" name="description" className="input-transaction form-control" placeholder="description" onBlur={this.handleInputChange}/>
+                                                                <span className="text-danger">{this.state.errors.description}</span>
+                                                            </div>
+                                                    }
                                                     <div className="form-group">
                                                         {
                                                             (isFetchedCreditCards === true) &&
-                                                            <select name="cardNumber" className="input-transaction form-control" onChange={this.handleInputChange} >
-                                                                <option disabled selected>choose a credit card</option>
+                                                            <select name="cardNumber" className="input-transaction form-control" defaultValue="default" onChange={this.handleInputChange} >
+                                                                <option disabled value="default">choose a credit card</option>
                                                                 {
                                                                     creditCards.map(card =>
                                                                         <option value={card.cardNumber}>{card.cardNumber}</option>

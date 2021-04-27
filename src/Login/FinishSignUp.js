@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as signUpAction from '../Store/Actions/SignUpActions';
 import './LoginStyle.css';
-// import './finishSignUpStyle.css';
 
 class FinishSignUp extends Component{
     constructor(props){
@@ -140,10 +139,10 @@ class FinishSignUp extends Component{
                     <div className="row message">
                         <div className="col-md-4">
                             {
-                                (this.props.isSignUpFinished===false) && <div class="alert alert-danger" role="alert"><strong>Failed </strong>{this.props.signUp}</div>
+                                (this.props.isSignUpFinished===false) && <div className="alert alert-danger" role="alert"><strong>Failed </strong>{this.props.signUp}</div>
                             }
                             {
-                                (this.props.isSignUpFinished===true) && <div class="alert alert-success" role="alert">Sign Up Successfully</div>
+                                (this.props.isSignUpFinished===true) && <div className="alert alert-success" role="alert">Sign Up Successfully</div>
                             }
                         </div>
                     </div>
@@ -160,7 +159,7 @@ class FinishSignUp extends Component{
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <label for="email" class="col-sm-2 control-label">Email* </label>
+                                    <label for="email" className="col-sm-2 control-label">Email* </label>
                                     <div className="col-lg-1">:</div>
                                     <div className="col-sm-6">
                                         <input type="email" id="email" placeholder="Email" className="form-control signUp-form" name= "email" onChange={this.handleInputChange}/>

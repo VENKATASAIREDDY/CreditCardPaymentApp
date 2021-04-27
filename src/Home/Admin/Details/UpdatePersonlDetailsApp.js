@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as adminAction from '../../../Store/Actions/AdminActions';
-import { Spinner } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 
 class UpdatePersonalDetails extends Component {
@@ -21,7 +20,10 @@ class UpdatePersonalDetails extends Component {
         this.state = React.createRef();
         this.pincode = React.createRef();
 
-        this.errors={};
+        this.state={
+            errors:{}
+        }
+
         this.updateCustomer = this.updateCustomer.bind(this);
     }
 
@@ -45,66 +47,89 @@ class UpdatePersonalDetails extends Component {
         let isValid = true;
 
         if (!userName) {
-          isValid = false;
-          errors["userName"] = "Please enter your Name";
-        }
-    
-        if (!email) {
-          isValid = false;
-          errors["email"] = "Please enter the email";
-        }else if(!email.match("^[A-Za-z0-9]{3,}[@][a-z]{2,}[.][a-z.]{2,}[a-z]$")){
             isValid = false;
-            errors["email"] = "enter valid email ex:abc@gamil.com"
-        }
-        
-        if (!contactNo) {
-            isValid = false;
-            errors["contactNo"] = "Please enter your number";
-        }else if(!contactNo.match("[6-9][0-9]{9}")){
-            isValid = false;
-            errors["contactNo"] = "enter valid number of length 10"
-        }
-    
-        if (!dob) {
-        isValid = false;
-        errors["dob"] = "Please select the date of birth";
-        } 
-
-        if (!doorNo) {
-        isValid = false;
-        errors["doorNo"] = "Please enter your door number";
-        }
-    
-        if (!street) {
-        isValid = false;
-        errors["street"] = "Please enter the street";
-        } 
-
-        if (!city) {
-        isValid = false;
-        errors["city"] = "Please enter your city";
-        }
-    
-        if (!area) {
-        isValid = false;
-        errors["area"] = "Please enter your area";
-        }
-
-        if (!state) {
-            isValid = false;
-            errors["state"] = "Please enter your state";
-        }
-        
-        if (!pincode) {
-            isValid = false;
-            errors["pincode"] = "Please enter your pincode";
-        }else if(!pincode.match("[1-9][0-9]{5}")){
-            isValid = false;
-            errors["pincode"] = "enter valid pincode";
-        }
+            errors["userName"] = "Please enter your Name";
+          }else if(!userName.match("^[A-z][A-Z a-z]{5,50}$")){
+              isValid = false;
+              errors["userName"] = "Please enter correct Name";
+          }
       
-        this.errors=errors;
-    
+          if (!email) {
+            isValid = false;
+            errors["email"] = "Please enter the email";
+          }else if(!email.match("^[A-Za-z0-9]{3,}[@][a-z]{2,}[.][a-z.]{2,}[a-z]$")){
+              isValid = false;
+              errors["email"] = "enter valid email ex:abc@gamil.com"
+          }
+          
+          if (!contactNo) {
+              isValid = false;
+              errors["contactNo"] = "Please enter your number";
+          }else if(!contactNo.match("[6-9][0-9]{9}")){
+              isValid = false;
+              errors["contactNo"] = "enter valid number of length 10"
+          }
+      
+          if (!dob) {
+              isValid = false;
+              errors["dob"] = "Please select the date of birth";
+          }else if(new Date(dob)>new Date()){
+              isValid = false;
+              errors["dob"] = "Please select valid date of birth";
+          }
+  
+          if (!doorNo) {
+          isValid = false;
+          errors["doorNo"] = "Please enter your door number";
+          }else if(!doorNo.match("^[A-z0-9][A-z 0-9./-]{1,10}$")){
+              isValid=false;
+              errors["doorNo"] = "enter Valid Door Number"
+          }
+      
+          if (!street) {
+          isValid = false;
+          errors["street"] = "Please enter the street";
+          }else if(!street.match("^[A-z][a-z , A-Z]{2,30}$")){
+              isValid=false;
+              errors["street"] = "Enter valid Street Name"
+          }
+  
+          if (!city) {
+          isValid = false;
+          errors["city"] = "Please enter your city";
+          }else if(!city.match("^[A-z][a-z A-Z]{1,30}$")){
+              isValid=false;
+              errors["city"] = "Enter valid City"
+          }
+      
+          if (!area) {
+          isValid = false;
+          errors["area"] = "Please enter your area";
+          }else if(!area.match("^[A-z][a-z , A-Z]{2,30}$")){
+              isValid=false;
+              errors["area"] = "Enter valid area"
+          }
+  
+          if (!state) {
+              isValid = false;
+              errors["state"] = "Please enter your state";
+          }else if(!state.match("^[A-z][a-z . A-Z]{1,30}$")){
+              isValid=false;
+              errors["state"] = "Enter valid State"
+          }
+          
+          if (!pincode) {
+              isValid = false;
+              errors["pincode"] = "Please enter your pincode";
+          }else if(!pincode.match("[1-9][0-9]{5}")){
+              isValid = false;
+              errors["pincode"] = "enter valid pincode";
+          }
+        
+          this.setState({
+              errors: errors
+          })
+
         return isValid;
     }
 
@@ -136,8 +161,10 @@ class UpdatePersonalDetails extends Component {
     }
 
     render() {
-        const { personalDetailsUpdate, isUpdatedPersonalDetails, personalDetails, isFetchedPersonalDetails } = this.props;
-
+        const {  isUpdatedPersonalDetails, personalDetails } = this.props;
+        if(isUpdatedPersonalDetails){
+            return(<Redirect to={`/admin/home/${personalDetails.userId}/personalDetails`}/>)
+        }
         return (
             <div className="container-fluid">
                 {
@@ -147,58 +174,58 @@ class UpdatePersonalDetails extends Component {
                                 <div className="container bg-dark text-light personal-details-container shadow-lg">
                                     <div className="row blank">
                                     {
-                                        (isUpdatedPersonalDetails===false) && <div class="alert alert-danger" role="alert"><strong>Failed </strong>{isUpdatedPersonalDetails}</div>
+                                        (isUpdatedPersonalDetails===false) && <div className="alert alert-danger" role="alert"><strong>Failed </strong>{isUpdatedPersonalDetails}</div>
                                     }
                                     {
-                                        (isUpdatedPersonalDetails===true) && <div> <div class="alert alert-success" role="alert"> Successfully Changed the Details </div></div>
+                                        (isUpdatedPersonalDetails===true) && <div> <div className="alert alert-success" role="alert"> Successfully Changed the Details </div></div>
                                     }
                                     </div>
                                     <div className="row personal-details">
                                         <div className="col-sm-3 pic">
-                                            <i class="bi bi-person-square"></i>
+                                            <i className="bi bi-person-square"></i>
                                         </div>
                                         <div className="col-sm-8 text-details">
                                             <div className="row">
                                                 <h2 className="h2-personal-details person-name-update">
                                                     <input className="input-personal-details" defaultValue={personalDetails.userName} placeholder="Enter the Name" type="text" ref={this.userName} />
-                                                    <p className="text-danger">{this.errors.pincode}</p>
                                                 </h2>
+                                                <span className="text-danger h2-personal-details person-name-update">{this.state.errors.userName}</span>
                                             </div>
                                             <div className="row details-control">
                                                 <div className="col-sm-1"></div>
                                                 <div className="col-sm-4 span-personal-details">
-                                                    <i class="bi bi-envelope"> Email</i>
+                                                    <i className="bi bi-envelope"> Email</i>
                                                 </div>
                                                 <div className="col-sm-6 span-personal-details">
                                                     <input className="input-personal-details" placeholder="Email" defaultValue={personalDetails.email} type="text" ref={this.email} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.email}</span>
                                                 </div>
                                             </div>
                                             <div className="row details-control">
                                                 <div className="col-sm-1"></div>
                                                 <div className="col-sm-4 span-personal-details">
-                                                    <i class="bi bi-telephone"> Contact </i>
+                                                    <i className="bi bi-telephone"> Contact </i>
                                                 </div>
                                                 <div className="col-sm-6 span-personal-details">
                                                     <input className="input-personal-details" placeholder="Contact Number" defaultValue={personalDetails.contactNo} type="text" ref={this.contactNo} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.contactNo}</span>
                                                 </div>
                                             </div>
                                             <div className="row details-control">
                                                 <div className="col-sm-1"></div>
                                                 <div className="col-sm-4 span-personal-details">
-                                                    <i class="bi bi-calendar4-event"> Date of Birth</i>
+                                                    <i className="bi bi-calendar4-event"> Date of Birth</i>
                                                 </div>
                                                 <div className="col-sm-5 span-personal-details">
                                                     <input className="input-personal-details" defaultValue={personalDetails.dob} type="date" ref={this.dob} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.dob}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row person-address-update">
                                         <div className="col-sm-3 pic address-pic">
-                                            <i class="bi bi-geo-alt"></i>
+                                            <i className="bi bi-geo-alt"></i>
                                         </div>
                                         <div className="col-sm-8 address-text">
                                             <div className="row details-control">
@@ -206,11 +233,11 @@ class UpdatePersonalDetails extends Component {
                                                 <div className="col-sm-4 span-personal-details">Address</div>
                                                 <div className="col-sm-6 span-personal-details">
                                                     <input className="input-personal-details" placeholder="Door No/ Flat No" defaultValue={personalDetails.address.doorNo} type="text" ref={this.doorNo} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.doorNo}</span>
                                                     <input className="input-personal-details" placeholder="Street Name" defaultValue={personalDetails.address.street} type="text" ref={this.street} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.street}</span>
                                                     <input className="input-personal-details" placeholder="Area" defaultValue={personalDetails.address.area} type="text" ref={this.area} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.area}</span>
                                                 </div>
                                             </div>
                                             <div className="row details-control">
@@ -218,7 +245,7 @@ class UpdatePersonalDetails extends Component {
                                                 <div className="col-sm-4 span-personal-details">City</div>
                                                 <div className="col-sm-6 span-personal-details">
                                                     <input className="input-personal-details" placeholder="City" defaultValue={personalDetails.address.city} type="text" ref={this.city} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.city}</span>
                                                 </div>
                                             </div>
                                             <div className="row details-control">
@@ -226,7 +253,7 @@ class UpdatePersonalDetails extends Component {
                                                 <div className="col-sm-4 span-personal-details"> State</div>
                                                 <div className="col-sm-6 span-personal-details">
                                                     <input className="input-personal-details" placeholder="State" defaultValue={personalDetails.address.state} type="text" ref={this.state} />
-                                                    <span className="span-personal-details"></span>
+                                                    <span className="span-personal-details text-danger">{this.state.errors.state}</span>
                                                 </div>
                                             </div>
                                             <div className="row details-control">
@@ -234,6 +261,7 @@ class UpdatePersonalDetails extends Component {
                                                 <div className="col-sm-4 span-personal-details"> Pincode</div>
                                                 <div className="col-sm-5 span-personal-details">
                                                     <input className="input-personal-details" placeholder="Pincode" defaultValue={personalDetails.address.pincode} type="text" ref={this.pincode} />
+                                                    <span className="span-personal-details text-danger">{this.state.errors.pincode}</span>
                                                 </div>
                                             </div>
                                         </div>

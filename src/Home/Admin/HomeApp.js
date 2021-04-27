@@ -3,9 +3,6 @@ import AdminRoutes from './AdminRoutes';
 import NavigationBar from './NavigationsBar';
 
 class AdminHomeApp extends Component{
-    constructor(props){
-        super(props);
-    }
 
     render(){
         const userId=this.props.match.params.userId;

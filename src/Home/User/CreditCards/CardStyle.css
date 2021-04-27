@@ -3,8 +3,10 @@
     background-image: url("../../../Images/creditcardbackground.png");
     background-size: 100%;
     background-repeat: no-repeat;
+    background-size: cover;
     min-height: 88mm;
     margin-bottom: 5mm;
+    background-position-y: center;
 }
 .h3-add{
     text-align: center;
@@ -23,12 +25,27 @@
     font-size: 25px;
 }
 
+.cardType-right{
+    text-align: right;
+    color: blanchedalmond;
+    padding-right: 15mm;
+    padding-top: unset;
+}
+
+.card-bank-name{
+    color: white;
+    padding-left: 10mm;
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 4mm;
+}
+
 .cardtitle{
     text-align: right;
     font-weight: bold;
     color: white;
     padding-right: 15mm;
-    padding-top: 5mm;
+    padding-top: 4mm;
     text-indent: 10mm;
     font-size: 30px;
 }
@@ -36,7 +53,7 @@
 .cardpadding{
     padding-right: 15mm;
     padding-top: 10mm;
-    padding-bottom: 8mm;
+    padding-bottom: 10mm;
     text-indent: 10mm;
     font-size: 20px;
 }
@@ -189,5 +206,18 @@
     box-shadow: #0ff;
 }
 .label-card{
+    font-weight: bold;
+}
+
+.card-bttn-area {
+    margin-top: 10mm;
+    text-align: center;
+    margin-bottom: 10mm;
+}
+.card-bttn-details {
+    opacity: 0.8;
+}
+.card-bttn-details:hover{
+    opacity: 1;
     font-weight: bold;
 }

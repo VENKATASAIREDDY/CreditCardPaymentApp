@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Modal, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as adminAction from '../../../Store/Actions/AdminActions';
 
@@ -23,7 +22,7 @@ class DeleteUser extends Component {
         } else {
             return(
             <div className="container">
-                <div class="row spinner-border text-danger"></div>
+                <div className="row spinner-border text-danger"></div>
             </div>
             )
             

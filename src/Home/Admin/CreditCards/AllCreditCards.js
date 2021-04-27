@@ -71,7 +71,7 @@ class AllCreditCards extends Component{
                         <div className="col-sm-12">
                             <Link to={`/admin/home/${this.props.match.params.userId}/statements/history/${row.cardNumber}`} className="btn btn-outline-primary" onClick={e => {
                             }}>
-                                <i class="bi bi-eye-fill"></i> View Statements
+                                <i className="bi bi-eye-fill"></i> View Statements
                           </Link>
                         </div>
                     </div>
@@ -87,7 +87,7 @@ class AllCreditCards extends Component{
                         <div className="col-sm-12">
                             <Link to={`/admin/home/${this.props.match.params.userId}/transactions/history/${row.cardNumber}`} className="btn btn-outline-primary" onClick={e => {
                             }}>
-                                <i class="bi bi-eye-fill"></i> View Transactions
+                                <i className="bi bi-eye-fill"></i> View Transactions
                           </Link>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ class AllCreditCards extends Component{
                         <div className="col-sm-12">
                             <Link to={`/admin/home/${this.props.match.params.userId}/payments/history/${row.cardNumber}`} className="btn btn-outline-primary" onClick={e => {
                             }}>
-                                <i class="bi bi-eye-fill"></i> View Paymentss
+                                <i className="bi bi-eye-fill"></i> View Paymentss
                           </Link>
                         </div>
                     </div>

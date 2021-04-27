@@ -4,9 +4,9 @@ import PersonalDetails from './Details/PersonalDetails';
 import UpdatePersonalDetailsApp from './Details/UpdatePersonlDetailsApp';
 import ChangePassword from './Details/ChangePassword';
 import BilledStatement from './Statements/BilledStatement';
-import UnBilledStatement from './Statements/UnBilledStatement';
+// import UnBilledStatement from './Statements/UnBilledStatement';
 import StatementHistory from './Statements/StatementHistory';
-import TransactionApp from './Transactions/TransactionApp';
+// import TransactionApp from './Transactions/TransactionApp';
 import TransactionHistory from './Transactions/TransactionHistory';
 import PayBillApp from './Payments/PayBillApp';
 import PayUnBillApp from './Payments/PayUnBillApp';
@@ -19,6 +19,9 @@ import AddAccountsApp from './Accounts/AddAccountApp';
 import DeleteAccountApp from './Accounts/DeleteAccountApp';
 import UserHome from './UserHomeContent';
 import CreditCardDetails from './CreditCards/CreditCardDetails';
+import StatementHistoryOfCard from './Statements/StatementHistoryOfCard';
+import TransactionHistoryOfCard from './Transactions/TransactionHistoryOfCard';
+import PaymentHistoryOfCard from './Payments/PaymentHistoryOfCard';
 
 
 const UserRoutes = () => (
@@ -27,15 +30,16 @@ const UserRoutes = () => (
             <Route path='/home/:userId' component={UserHome} exact />
 
             <Route path='/home/:userId/statements/billed/:cardNumber/:statementId' component={BilledStatement} exact />
-            <Route path='/home/:userId/statements/unBilled' component={UnBilledStatement} exact />
+            <Route path='/home/:userId/statements/billed/:cardNumber' component={StatementHistoryOfCard} exact />
             <Route path='/home/:userId/statements/history' component={StatementHistory} exact />
 
-            <Route path='/home/:userId/transactions/do' component={TransactionApp} exact />
+            <Route path='/home/:userId/transactions/history/:cardNumber' component={TransactionHistoryOfCard} exact /> 
             <Route path='/home/:userId/transactions/history' component={TransactionHistory} exact />
 
             <Route path='/home/:userId/payments/payBill/:statementId' component={PayBillApp} exact />
             <Route path='/home/:userId/payments/payUnBill/:cardNumber' component={PayUnBillApp} exact />
             <Route path='/home/:userId/payments/history' component={PaymentHistory} exact />
+            <Route path='/home/:userId/payments/history/:cardNumber' component={PaymentHistoryOfCard} exact />
 
             <Route path='/home/:userId/creditcards' component={AllCreditCards} exact />
             <Route path='/home/:userId/creditcards/addNew' component={AddCreditCardApp} exact />

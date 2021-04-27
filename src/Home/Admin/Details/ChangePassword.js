@@ -1,4 +1,3 @@
-import { Alert } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -25,18 +24,12 @@ class ChangePassword extends Component{
     }
     
     validate = () =>{
-        let userId = this.state.userId;
         let currentPassword = this.state.currentPassword;
         let newPassword = this.state.newPassword;
         let confirmPassword = this.state.confirmPassword;
         let errors = {};
         let isValid = true;
-
-        if (!userId) {
-          isValid = false;
-          errors["userId"] = "Please enter your UserId.";
-        }
-    
+   
         if (!currentPassword) {
           isValid = false;
           errors["currentPassword"] = "Please enter your password.";
@@ -55,7 +48,7 @@ class ChangePassword extends Component{
             errors["confirmPassword"] = "Please enter your password.";
         } 
 
-        if((newPassword!=confirmPassword)){
+        if((newPassword!==confirmPassword)){
             isValid = false;
             errors["confirmPassword"] = "Password and confirm Password didn't match"
         }
@@ -70,7 +63,7 @@ class ChangePassword extends Component{
         event.preventDefault();
 
         const user={
-            userId:this.state.userId,
+            userId:this.props.match.params.userId,
             currentPassword:this.state.currentPassword,
             newPassword : this.state.newPassword,
             confirmPassword : this.state.confirmPassword
@@ -88,10 +81,10 @@ class ChangePassword extends Component{
                         <div className="row message">
                             <div className="col-md-4">
                                 {
-                                    (this.props.isChanged===false) && <div class="alert alert-danger" role="alert">Change Password Failed</div>
+                                    (this.props.isChanged===false) && <div className="alert alert-danger" role="alert">Change Password Failed</div>
                                 }
                                 {
-                                    (this.props.isChanged===true) && <div class="alert alert-success" role="alert">Password Changed Successfully</div>
+                                    (this.props.isChanged===true) && <div className="alert alert-success" role="alert">Password Changed Successfully</div>
                                 }
                             </div>
                         </div>
@@ -100,7 +93,7 @@ class ChangePassword extends Component{
                                 <h3 className="text h3">Change Password </h3>
                                 <form className="login-form" onSubmit={this.changePassword}>
                                     <div className="form-group">
-                                        <input type="text" name="userId" className="form-control" placeholder="UserId*" defaultValue={this.props.match.params.userId}/>
+                                        <input type="text" name="userId" className="form-control" placeholder="UserId*" defaultValue={this.props.match.params.userId} disabled/>
                                         <span className="validations text-danger">{this.state.errors.userId}</span>
                                     </div>
                                     <div className="form-group">

@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import * as userAction from '../../../Store/Actions/UserActions';
 import './StatementStyles.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as userActions from '../../../Store/Actions/UserActions';
 
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import { Link } from 'react-router-dom';
 
-class StatementHistory extends Component{
+class StatementHistoryOfCard extends Component{
 
-    componentDidMount(){
-        const {userAction,match}=this.props;
-        userAction.fetchStatementsById(match.params.userId);
+    componentDidMount() {
+        const{userActions,match}=this.props;
+        userActions.fetchStatements(match.params.cardNumber);
     }
 
-render(){
-    const columns = [
-        {
+    render(){
+        const columns = [{
             dataField : 'cardNumber',
-            text : 'Credit Card Number',
-            sort : true,
-            filter : textFilter()
+            text : 'Credit Card Number'
         },
         {
             dataField : 'customerName',
-            text : 'Customer Name',
-            sort : true
+            text : 'Customer Name'
         },
         {
             dataField : 'billDate',
@@ -39,7 +35,8 @@ render(){
         {
             dataField : 'dueDate',
             text : 'Due Date',
-            sort : true
+            sort : true,
+            filter : textFilter()
         },
         {
             dataField : 'billAmount',
@@ -65,17 +62,19 @@ render(){
             }
         }
     ];
+
+    const defaultSorted = [{
+        dataField: 'dueAmount',
+        order: 'desc'
+    }];
     const options = {
         sizePerPage:10,
         hideSizePerPage:true,
         hidePageListOnlyOnePage: true
     }
-    const defaultSorted = [{
-        dataField: 'dueAmount',
-        order: 'desc'
-    }];
-    const {isFetchedStatementsById,statementHistoryById}=this.props;
-    if(isFetchedStatementsById===true){
+
+    const {statementHistory,isFetchedStatements}=this.props;
+    if(isFetchedStatements!==undefined){
         return(
             <div className="container top-statements">
                 <div className="container heading-statements">
@@ -84,38 +83,38 @@ render(){
                 <div className="row">
                     <BootstrapTable
                         bootstrap4
-                        keyField='userId'
-                        data={statementHistoryById}
+                        keyField='cardNumber'
                         columns={columns}
+                        data={statementHistory}
+                        defaultSorted = {defaultSorted}
                         pagination={paginationFactory(options)}
                         filter={filterFactory()}
-                        defaultSorted = {defaultSorted}
                         striped
                         hover
-                    />
+                    />                                    
                 </div>
-            </div>
+            </div>      
         )
-    }else {
+    }else{
         return(
-            <div>
-                still fetching ...
-            </div>
-        )}
+            <div>Fetching...</div>
+        )
     }
-}
-function mapStateToProps(state) {
-    return { 
-        statementHistoryById : state.UserReducers.statementHistoryById,
-        isFetchedStatementsById :state.UserReducers.isFetchedStatementsById
         
     }
-}  
-    
-function mapDispatchToProps (dispatch) {
+
+}
+function mapStateToProps(state) {
     return {
-        userAction : bindActionCreators(userAction,dispatch),
-    }   
+        statementHistory: state.UserReducers.statementHistory,
+        isFetchedStatements : state.UserReducers.isFetchedStatements
+    }
+}  
+ 
+function mapDispatchToProps (dispatch) {
+   return {
+        userActions : bindActionCreators(userActions,dispatch)
+   }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(StatementHistory);
+export default connect(mapStateToProps,mapDispatchToProps)(StatementHistoryOfCard);

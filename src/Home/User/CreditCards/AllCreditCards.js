@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Spinner } from 'react-bootstrap';
+import { Card} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link} from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -35,10 +35,11 @@ class AllCreditCards extends Component{
                                     <div className="row">
                                     { 
                                     creditCards.map((card)=>
-                                        <div className="col-sm-6">
+                                        <div className="col-lg-6">
                                             <Card className="text-dark card">
                                                 <div className="row">
-                                                    <div className="col-sm-12 cardtitle">Credit Card</div>
+                                                    <div className="col-sm-6 card-bank-name">{card.bankName}</div>
+                                                    <div className="col-sm-6 cardtitle">Credit Card</div>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-sm-12 cardpadding"></div>
@@ -51,14 +52,17 @@ class AllCreditCards extends Component{
                                                     
                                                 </div>
                                                 <div className="row">
-                                                    <div className="col-sm-8 cardname">{userName}</div>
-                                                    <div className="col-sm-4 cardtype">{card.cardName}</div>
+                                                    <div className="col-sm-7 cardname">{userName}</div>
+                                                    <div className="col-sm-5 cardtype">{card.cardName}</div>
                                                 </div>
                                                 <div className="row">
-                                                <div class="overlay"></div>
+                                                    <div className="col-sm-12 cardType-right">{card.cardType}</div>
+                                                </div>
+                                                <div className="row">
+                                                <div className="overlay"></div>
                                                 
-                                                <Link to={`/home/${userId}/creditcards/view/${card.cardNumber}`} class="btn btn-primary hover-btn-view"> View </Link>
-                                                <Link to={`/home/${userId}/creditcards/delete/${card.cardNumber}`} class="btn btn-danger hover-btn-del"> Delete </Link>
+                                                <Link to={`/home/${userId}/creditcards/view/${card.cardNumber}`} className="btn btn-primary hover-btn-view"> View </Link>
+                                                <Link to={`/home/${userId}/creditcards/delete/${card.cardNumber}`} className="btn btn-danger hover-btn-del"> Delete </Link>
                                                 </div>
                                                 
                                             </Card>

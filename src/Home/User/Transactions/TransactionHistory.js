@@ -1,171 +1,75 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
 
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+
 class TransactionHistory extends Component{
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            allTransactionHistoryById:[]
-        };
-
-    }
-
+    
     componentDidMount(){
         const {userAction,match}=this.props;
         userAction.fetchTransactionsById(match.params.userId);
     }
 
-    sortId=()=>{
-        var sorted;
-        sorted= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.cardNumber > b.cardNumber)?1:-1);
-        })
-        this.setState({
-            allStatementHistoryById:sorted
-        })
-    }
-    sortIdDes=()=>{
-        var sortedDes;
-        sortedDes= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.cardNumber > b.cardNumber)?-1:1);
-        })
-        this.setState({
-            allStatementHistoryById:sortedDes
-        })
-    }
-    sortDate=()=>{
-        var sorted;
-        sorted= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.transactionDate > b.transactionDate)?1:-1);
-        })
-        this.setState({
-            allStatementHistoryById:sorted
-        })
-    }
-    sortDateDes=()=>{
-        var sortedDes;
-        sortedDes= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.transactionDate > b.transactionDate)?-1:1);
-        })
-        this.setState({
-            allStatementHistoryById:sortedDes
-        })
-    }
-    sortTime=()=>{
-        var sorted;
-        sorted= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.transactionTime > b.transactionTime)?1:-1);
-        })
-        this.setState({
-            allStatementHistoryById:sorted
-        })
-    }
-    sortTimeDes=()=>{
-        var sortedDes;
-        sortedDes= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.transactionTime > b.transactionTime)?-1:1);
-        })
-        this.setState({
-            allStatementHistoryById:sortedDes
-        })
-    }
-    sortAmount=()=>{
-        var sorted;
-        sorted= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.amount> b.amount)?1:-1);
-        })
-        this.setState({
-            allStatementHistoryById:sorted
-        })
-    }
-    sortAmountDes=()=>{
-        var sortedDes;
-        sortedDes= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.amount > b.amount)?-1:1);
-        })
-        this.setState({
-            allStatementHistoryById:sortedDes
-        })
-    }
-    sortStatus=()=>{
-        var sorted;
-        sorted= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.status > b.status)?1:-1);
-        })
-        this.setState({
-            allStatementHistoryById:sorted
-        })
-    }
-    sortStatusDes=()=>{
-        var sortedDes;
-        sortedDes= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.status > b.status)?-1:1);
-        })
-        this.setState({
-            allStatementHistoryById:sortedDes
-        })
-    }
-    sortPerpose=()=>{
-        var sorted;
-        sorted= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.description > b.description)?1:-1);
-        })
-        this.setState({
-            allStatementHistoryById:sorted
-        })
-    }
-    sortPerposeDes=()=>{
-        var sortedDes;
-        sortedDes= this.props.transactionHistoryById.sort((a,b)=>{
-            return ((a.description > b.description)?-1:1);
-        })
-        this.setState({
-            allStatementHistoryById:sortedDes
-        })
-    }
     render(){
-    const {isFetchedTransactionsById,transactionHistoryById}=this.props;
+        const columns = [{
+                dataField : 'cardNumber',
+                text : 'Credit Card Number',
+                sort : true,
+                filter : textFilter()
+            },
+            {
+                dataField : 'transactionDate',
+                text : 'Transaction Date',
+                sort :true,
+                filter : textFilter()
+            },
+            {
+                dataField : 'transactionTime',
+                text : 'Transaction Time',
+                sort : true
+            },
+            {
+                dataField : 'amount',
+                text : 'Transaction Amount',
+                sort : true
+            },
+            {
+                dataField : 'description',
+                text : 'Description',
+                sort : true,
+                filter : textFilter()
+            }
+        ];
+        const options = {
+            sizePerPage:10,
+            hideSizePerPage:true,
+            hidePageListOnlyOnePage: true
+        }
+
+        const {isFetchedTransactionsById,transactionHistoryById}=this.props;
         if(isFetchedTransactionsById===true){
             return(
-                <div className="container top-statements">
-                    <div className="container heading-statements">
-                        <h2 className="h2-statements">History of Statements</h2>
+                <div className="container-fluid top-statements">
+                    <div className="container-fluid heading-statements">
+                        <h2 className="h2-statements">History of Transactions</h2>
                     </div>
                     <div className="row">
-                    <Table striped bordered hover size="xl" responsive>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Card_Number<Link class="bi bi-arrow-down name-asc" onClick={this.sortId}></Link><Link class="bi bi-arrow-up name-desc" onClick={this.sortIdDes}></Link></th>
-                                    <th>Transaction Date<Link class="bi bi-arrow-down city-asc" onClick={this.sortDate}></Link><Link class="bi bi-arrow-up city-desc" onClick={this.sortDateDes}></Link></th>
-                                    <th>Transaction Time<Link class="bi bi-arrow-down city-asc" onClick={this.sortTime}></Link><Link class="bi bi-arrow-up city-desc" onClick={this.sortTimeDes}></Link></th>
-                                    <th>Amount<Link class="bi bi-arrow-down no-asc" onClick={this.sortAmount}></Link><Link class="bi bi-arrow-up no-desc" onClick={this.sortAmountDes}></Link></th>
-                                    <th>Status<Link class="bi bi-arrow-down dob-asc" onClick={this.sortStatus}></Link><Link class="bi bi-arrow-up dob-desc" onClick={this.sortStatusDes}></Link></th>
-                                    <th>description<Link class="bi bi-arrow-down dob-asc" onClick={this.sortPerpose}></Link><Link class="bi bi-arrow-up dob-desc" onClick={this.sortPerposeDes}></Link></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    transactionHistoryById.map((transaction,index)=>
-                                        <tr>
-                                            <td>{index+1}</td>
-                                            <td>{transaction.cardNumber}</td>
-                                            <td>{transaction.transactionDate}</td>
-                                            <td>{transaction.transactionTime}</td>
-                                            <td>{transaction.amount}</td>
-                                            <td>{transaction.status}</td>
-                                            <td>{transaction.description}</td>
-                                            
-                                        </tr>    
-                                    )
-                                }
-                            </tbody>
-                        </Table>
+                    <BootstrapTable
+                        bootStrap4
+                        keyField='userId'
+                        data={transactionHistoryById}
+                        columns={columns}
+                        pagination={paginationFactory(options)}
+                        filter={filterFactory()}
+                        striped
+                        hover
+                        wrapperClasses="table-responsive"
+                    /> 
                     </div>
                 </div>
             )

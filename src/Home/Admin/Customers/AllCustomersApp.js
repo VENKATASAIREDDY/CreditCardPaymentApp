@@ -45,7 +45,7 @@ class AllCustomers extends Component{
                         <div className="col-sm-5">
                               <Link to={`/admin/home/${this.props.match.params.userId}/customerDetails/${row.userId}`} className="btn btn-outline-primary" onClick={e => {
                                   }}>
-                                  <i class="bi bi-eye-fill"></i> View                                    
+                                  <i className="bi bi-eye-fill"></i> View                                    
                               </Link>
                           </div>                        
                     </div>

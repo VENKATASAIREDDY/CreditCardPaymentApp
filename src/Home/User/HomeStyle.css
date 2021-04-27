@@ -59,8 +59,9 @@
 }
 .transaction-block{
     border-radius: 10px;
-    padding-top: 2mm;
+    padding-top: 5mm;
     padding-bottom: 2mm;
+    margin-top:5mm ;
 }
 .buttons-transact{
     text-align: center;
@@ -70,4 +71,7 @@
 }
 .bttn-send:hover{
     font-weight: bold;
+}
+.home-main-body{
+    min-height: 90vmin;
 }

@@ -1,9 +1,9 @@
-import { Alert } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as loginAction from '../Store/Actions/LoginActions';
+import Fotter from './Fotter';
 import './LoginStyle.css';
 
 class LoginApp extends Component{
@@ -23,20 +23,40 @@ class LoginApp extends Component{
     }
     
     validate = () =>{
-        let userId = this.state.userId;
-        let password = this.state.password;
+        // var val= [event.target.name];
+        
+        // let check=this.state[val];
+        
+
+        // if(!check){
+        //     isValid=false;
+        //     errors[val]="Please enter details"
+        // }else if(!check.match("^[A-z][A-z0-9]{5,10}$")){
+        //     isValid=false;
+        //     errors[val]="it should be of length 6 min"
+        // }else{
+        //     errors[val]=""
+        // }
         let errors = {};
         let isValid = true;
-
+        let userId= this.state.userId;
+        let password = this.state.password;
+        
         if (!userId) {
           isValid = false;
           errors["userId"] = "Please enter your UserId.";
+        }else if(!userId.match("^[A-z][A-z0-9]{5,20}$")){
+            isValid = false;
+            errors["userId"] = "Enter Valid User Id of Length min 6"
         }
     
         if (!password) {
           isValid = false;
           errors["password"] = "Please enter your password.";
-        }   
+        }else if(!password.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&()])(?=\\S+$).{8,30}$")){
+            isValid = false;
+            errors["password"] = "Enter Valid password of length min 8"
+        }
       
         this.setState({
           errors: errors
@@ -52,7 +72,6 @@ class LoginApp extends Component{
             password:this.state.password
         };
         if(this.validate()){
-            
             this.props.loginAction.doLogin(user);
         }
     }
@@ -89,10 +108,10 @@ class LoginApp extends Component{
                         <div className="row message">
                             <div className="col-md-4">
                                 {
-                                    (this.props.isAuthUser===false) && <div class="alert alert-danger" role="alert">Login Failed {this.props.failMessage}</div>
+                                    (this.props.isAuthUser===false) && <div className="alert alert-danger" role="alert">Login Failed {this.props.failMessage}</div>
                                 }
                                 {
-                                    (this.props.isAuthUser===true) && <div class="alert alert-success" role="alert">Login Successful</div>
+                                    (this.props.isAuthUser===true) && <div className="alert alert-success" role="alert">Login Successful</div>
                                 }
                             </div>
                         </div>
@@ -101,12 +120,13 @@ class LoginApp extends Component{
                                 <h3 className="text h3">Sign In</h3>
                                 <form className="login-form" onSubmit={this.doLogin}>
                                     <div className="form-group">
-                                        <input type="text" name="userId" className="form-control" placeholder="UserId*" onChange={this.handleInputChange} required={this.state.errors.userId}/>
+                                        <input type="text" name="userId" className="form-control" placeholder="UserId*" onChange={this.handleInputChange} />
                                         <span className="text-danger">{this.state.errors.userId}</span>
                                     </div>
                                     <div className="form-group">
                                         <input type="password" name="password" className="form-control" placeholder="Password*" onChange={this.handleInputChange}/>
                                         <span className="text-danger">{this.state.errors.password}</span>
+                                        
                                     </div>
                                     <div className="form-group submit">
                                         <input type="submit" className="form-control btn-primary" value="Login"/>
@@ -128,7 +148,8 @@ class LoginApp extends Component{
                     </div>
                 </div>
                 <div className="container-fluid fotter">
-                    <h2 className="h2-login">Fotter</h2>
+                    {/* <h2 className="h2-login">Fotter</h2> */}
+                    <Fotter/>
                 </div>
             </div>
         )

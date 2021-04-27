@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Card } from 'react-bootstrap';
 import './CardStyle.css';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
+import { Redirect } from 'react-router';
 
 class AddCreditCard extends Component{
 
@@ -44,12 +44,16 @@ class AddCreditCard extends Component{
         if (!cardNumber || cardNumber.match("xxxx xxxx")) {
           isValid = false;
           errors["cardNumber"] = "Please enter card Number";
+        }else if(!cardNumber.match("^[1-9][0-9]{15}$")){
+            isValid = false;
+            errors["cardNumber"] = "Enter valid Card Number";
         }
     
         if (!cardName) {
           isValid = false;
           errors["cardName"] = "Please choose name of the card Type";
         } 
+
         if (!cardType) {
             isValid = false;
             errors["cardType"] = "Please choose card Type";
@@ -57,21 +61,34 @@ class AddCreditCard extends Component{
       
           if (!expiryDate) {
             isValid = false;
-            errors["expiryDate"] = "Please choose name of the card Type";
-          } 
-          if (!cvv) {
+            errors["expiryDate"] = "Please enter expiry date";
+          }else if(new Date(expiryDate)<new Date()){
+            isValid = false;
+            errors["expiryDate"] = "expiry date should be future date";
+        }
+
+        if (!cvv) {
             isValid = false;
             errors["cvv"] = "Please enter cvv";
-          }
+        }else if(!cvv.match("^[1-9][0-9]{2}$")){
+            isValid = false;
+            errors["cvv"] = "Enter valid cvv of length 3";
+        }
       
           if (!bankName) {
             isValid = false;
             errors["bankName"] = "Please enter the bank name";
-          }  
+          }else if(!bankName.match("^[A-Z a-z]{2,20}$")){
+              isValid = false;
+              errors["bankName"] = "Enter valid bank name";
+          }
           if (!cardLimit) {
             isValid = false;
             errors["cardLimit"] = "Please enter the card limit";
-          }  
+          }else if(!cardLimit.match("^[0-9]{1,7}$")){
+              isValid=false;
+              errors["cardLimit"] = "enter valid card limit";
+          }
 
         this.setState({
           errors: errors
@@ -94,43 +111,56 @@ class AddCreditCard extends Component{
             usedLimit:0.0
         };
         if(this.validate()){
-            alert("validated")
             this.props.userAction.addCreditCard(creditCard,this.state.userId);
         }
     }
 
 
     render(){
+        const {isAddedCreditCard, creditCard} = this.props;
+        if(isAddedCreditCard){
+            return <Redirect to={`/home/${this.props.match.params.userId}/creditcards`}/> 
+        }
         return(
             <div className="container whole-addcard">
+                {
+                    (isAddedCreditCard) && <div className="text-center alert alert-success"> Credit Card Added Succesfully</div>                
+                }
+                {
+                    (isAddedCreditCard===false) && <div className="alert alert-danger text-center">Failed to Add {creditCard}</div>                
+                }                   
+
                 <div className="conatiner-fluid heading-addcard">
                     <h3 className="h3-add">Add Credit Cards</h3>
                 </div>
                 <div className="container-fluid body-addcard">
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-lg-6">
                             <Card className="text-dark card">
                                 <div className="row">
-                                    <div className="col-sm-12 cardtitle">Credit Card</div>
+                                    <div className="col-sm-6 card-bank-name" onChange={this.handleInputChange}>{this.state.bankName}</div>
+                                    <div className="col-sm-6 cardtitle">Credit Card</div>
                                 </div>
                                 <div className="row">
                                     <div className="col-sm-12 cardpadding"></div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-sm-12 cardnumber">{this.state.cardNumber}</div>
+                                    <div className="col-sm-12 cardnumber" onChange={this.handleInputChange}>{this.state.cardNumber}</div>
                                 </div>
                                 <div className="row expiry">
-                                <div className="col-sm-8 cardexpiry">valid: {this.state.expiryDate}</div>
+                                <div className="col-sm-8 cardexpiry" onChange={this.handleInputChange}>valid: {this.state.expiryDate}</div>
                                     
                                 </div>
                                 <div className="row">
-                                <div className="col-sm-8 cardname"></div>
-                                    
-                                    <div className="col-sm-4 cardtype">{this.state.cardName}</div>
+                                    <div className="col-sm-7 cardname"></div>
+                                    <div className="col-sm-5 cardtype" onChange={this.handleInputChange}>{this.state.cardName}</div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-12 cardType-right" onChange={this.handleInputChange}>{this.state.cardType}</div>
                                 </div>
                             </Card>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             <form onSubmit={this.addCreditCard}>
                                 <div className="form-group text"><h4 className="h4-enter">Enter details of Card</h4></div>
                                 <div className="form-group">
@@ -138,21 +168,20 @@ class AddCreditCard extends Component{
                                     <span className="validations text-danger">{this.state.errors.cardNumber}</span>
                                 </div>
                                 <div className="form-group">
-                                    <select name="cardType" className="form-control" onChange={this.handleInputChange} >
-                                        <option disabled selected>Card Type</option>
+                                    <select name="cardType" className="form-control" defaultValue="default" onChange={this.handleInputChange} >
+                                        <option disabled value="default">Card Type</option>
                                         <option value="ELITE">ELITE</option>
                                         <option value="PRIME">PRIME</option>
                                         <option value="IRCTCPLATINUM">IRCTCPLATINUM</option>
                                         <option value="YATRA">YATRA</option>
                                         <option value="PREMIUM">PREMIUM</option>
                                         <option value="GOLD">GOLD</option>
-                                        <option value="AMERICAN,VISA,MASTER,MASTRO">ADMIN</option>
                                     </select>
                                     <span className="validations text-danger">{this.state.errors.cardType}</span>
                                 </div>
                                 <div className="form-group">
-                                    <select name="cardName" className="form-control" onChange={this.handleInputChange} >
-                                        <option disabled selected>Name of Card Type</option>
+                                    <select name="cardName" className="form-control" defaultValue="default" onChange={this.handleInputChange} >
+                                        <option disabled value="default">Name of Card Type</option>
                                         <option value="AMERICAN">AMERICAN</option>
                                         <option value="VISA">VISA</option>
                                         <option value="MASTER">MASTER</option>

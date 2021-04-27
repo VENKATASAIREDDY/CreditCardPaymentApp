@@ -1,4 +1,3 @@
-import { Alert } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -33,14 +32,20 @@ class SignUpApp extends Component{
         let isValid = true;
 
         if (!userId) {
-          isValid = false;
-          errors["userId"] = "Please enter your UserId";
+            isValid = false;
+            errors["userId"] = "Please enter your UserId.";
+        } else if (!userId.match("^[A-z][A-z0-9]{5,20}$")) {
+            isValid = false;
+            errors["userId"] = "Enter Valid User Id of Length min 6"
         }
-    
+
         if (!key) {
-          isValid = false;
-          errors["key"] = "Please enter the Key";
-        }   
+            isValid = false;
+            errors["key"] = "Please enter your password.";
+        } else if (!key.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&()])(?=\\S+$).{8,30}$")) {
+            isValid = false;
+            errors["key"] = "Enter Valid key given by admin of length min 8"
+        } 
 
         if (!createPassword) {
             isValid = false;
@@ -55,7 +60,7 @@ class SignUpApp extends Component{
             errors["confirmPassword"] = "Please enter your password.";
         } 
 
-        if((createPassword!=confirmPassword)){
+        if((createPassword!==confirmPassword)){
             isValid = false;
             errors["confirmPassword"] = "Password and confirm Password didn't match"
         }
@@ -94,10 +99,10 @@ class SignUpApp extends Component{
                         <div className="row message">
                             <div className="col-md-4">
                                 {
-                                    (this.props.isSignedUp===false) && <div class="alert alert-danger" role="alert"><strong>Failed </strong>{this.props.status}</div>
+                                    (this.props.isSignedUp===false) && <div className="alert alert-danger alert-dismissible fade show" role="alert"><strong>Failed </strong>{this.props.status}</div>
                                 }
                                 {
-                                    (this.props.isSignedUp===true) && <div class="alert alert-success" role="alert">Sign Up Successfully</div>
+                                    (this.props.isSignedUp===true) && <div className="alert alert-success alert-dismissible fade show" role="alert">Sign Up Successfully</div>
                                 }
                             </div>
                         </div>

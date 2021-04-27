@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import {  Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
 
@@ -13,12 +13,16 @@ class DeleteCreditCard extends Component{
     }
 
     render() {
-        return (
-            <div>
-                <Redirect to={`/home/${this.props.match.params.userId}/creditcards`}/>
-            </div>
-            
-        );
+        if(this.props.isDeletedCreditCard){
+            return <Redirect to={`/home/${this.props.match.params.userId}/creditcards`}/>
+        }else{
+            return(
+                <div className="container text-center">
+                    <h4>Unable to delete Credit Card </h4>
+                    <Link to={`/home/${this.props.match.params.userId}/creditcards`} className="btn btn-primary">Back</Link>                    
+                </div>
+            )
+        }
     }
 }
 function mapStateToProps(state) {

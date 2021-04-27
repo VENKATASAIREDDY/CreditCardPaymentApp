@@ -20,11 +20,9 @@ export const addCreditCard = (creditCard,userId) => {
     return (dispatch) => {
         return Axios.post(apiUrl + '/home/customers/creditcards/' + userId ,creditCard)
             .then(resp => {
-                alert("added"+""+resp.data)
                 dispatch(addCreditCardSuccess(resp.data))
             })
             .catch(error => {
-                alert(error.response.data)
                 dispatch(addCreditCardFail(error.response.data))
             });
     };

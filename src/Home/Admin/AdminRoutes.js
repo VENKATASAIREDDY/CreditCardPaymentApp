@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AllUsers from './Users/AllUsersbootstrap-table';
+import AllUsers from './Users/AllUsers';
 import AllCustomersApp from './Customers/AllCustomersApp';
 import AddUser from './Users/AddUser';
 import AllCreditCards from './CreditCards/AllCreditCards';

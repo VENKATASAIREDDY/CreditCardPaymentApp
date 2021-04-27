@@ -29,10 +29,15 @@ export const doLogin = (payload) => {
                 }).catch(error =>{
                     dispatch(loginFailure(error.response.data));
                 })
-                // dispatch(loginSuccess(response.data))
             })
             .catch(error => {
-                dispatch(loginFailure(error.response.data));
+                if(error.response.status===401){
+                    dispatch(loginFailure("UserId Password Didnt Match"));
+                }else if(error.response.status===404){
+                    dispatch(loginFailure("User Does not exists please SignUp"));
+                }else {
+                    dispatch(loginFailure(error.response.data));
+                }
             });
     };
 

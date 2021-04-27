@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
-import TransactionHistory from '../Transactions/TransactionHistory';
 import './StatementStyles.css';
 
 class BilledStatement extends Component {
@@ -63,21 +61,21 @@ class BilledStatement extends Component {
                                         <div className="col-sm-6">{personalDetails.email}</div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="row row-card-details">
-                                        <div class="col-sm-6 card-details-label">Card Limit</div>
-                                        <div class="col-sm-1">:</div>
-                                        <div class="col-sm-3">{creditCardDetails.cardLimit}</div>
+                                <div className="col-sm-4">
+                                    <div className="row row-card-details">
+                                        <div className="col-sm-6 card-details-label">Card Limit</div>
+                                        <div className="col-sm-1">:</div>
+                                        <div className="col-sm-3">{creditCardDetails.cardLimit}</div>
                                     </div>
-                                    <div class="row row-card-details">
-                                        <div class="col-sm-6 card-details-label">Used Limit</div>
-                                        <div class="col-sm-1">:</div>
-                                        <div class="col-sm-3">{creditCardDetails.usedLimit}</div>
+                                    <div className="row row-card-details">
+                                        <div className="col-sm-6 card-details-label">Used Limit</div>
+                                        <div className="col-sm-1">:</div>
+                                        <div className="col-sm-3">{creditCardDetails.usedLimit}</div>
                                     </div>
-                                    <div class="row row-card-details">
-                                        <div class="col-sm-6 card-details-label">Avail Limit</div>
-                                        <div class="col-sm-1">:</div>
-                                        <div class="col-sm-3">{creditCardDetails.cardLimit-creditCardDetails.usedLimit}</div>
+                                    <div className="row row-card-details">
+                                        <div className="col-sm-6 card-details-label">Avail Limit</div>
+                                        <div className="col-sm-1">:</div>
+                                        <div className="col-sm-3">{creditCardDetails.cardLimit-creditCardDetails.usedLimit}</div>
                                     </div>
                                 </div>                             
                             </div>

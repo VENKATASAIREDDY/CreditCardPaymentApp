@@ -27,7 +27,7 @@ class AllAccounts extends Component{
                                     <div className="col-sm-6 account-details">
                                         <Card className="account-card">
                                             <div className="row">
-                                                <div className="col-sm-12 logo-account"><i class="fa fa-bank fa-bank-all"></i></div>
+                                                <div className="col-sm-12 logo-account"><i className="fa fa-bank fa-bank-all"></i></div>
                                             </div>
                                             <div className="row account-control">
                                                 <div className="col-sm-1"></div>
@@ -63,9 +63,9 @@ class AllAccounts extends Component{
                                             </div>
                                             
                                             
-                                            <div class="overlay"></div>
+                                            <div className="overlay"></div>
                                             <div className="row">
-                                                <Link to={`/home/${userId}/accounts/delete/${account.accountNumber}`} class="btn btn-danger hover-btn-del hover-btn-del-account"><i class="bi bi-trash"></i> Delete </Link>             
+                                                <Link to={`/home/${userId}/accounts/delete/${account.accountNumber}`} className="btn btn-danger hover-btn-del hover-btn-del-account"><i className="bi bi-trash"></i> Delete </Link>             
                                             </div>
                                         </Card>
                                     </div>
@@ -76,7 +76,13 @@ class AllAccounts extends Component{
             )
         }else{
             return(
-                <div>Loading...</div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-12 col-bttn">
+                            <Link to={`/home/${userId}/accounts/addNew`} className="btn btn-primary">Add New Account</Link>
+                        </div>
+                    </div>
+                </div>
             )
         }
     }

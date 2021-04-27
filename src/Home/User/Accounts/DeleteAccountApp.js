@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Modal, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import {  Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
 
@@ -23,7 +22,7 @@ class DeleteAccount extends Component {
         } else {
             return(
             <div className="container">
-                <div class="row spinner-border text-danger"></div>
+                <div className="row text-danger">Unable to Delete {accountDelete}</div>
             </div>
             )
             
