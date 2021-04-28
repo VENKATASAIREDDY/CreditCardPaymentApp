@@ -31,9 +31,9 @@ class AddUser extends Component{
         if (!userId) {
           isValid = false;
           errors["userId"] = "Provide UserId";
-        }else if(!userId.match("^[A-Za-z][A-Za-z0-9]{3,20}$")){
+        }else if(!userId.match("^[A-Za-z][A-Za-z0-9]{5,20}$")){
             isValid = false;
-            errors["userId"] = "Provide userId with min length of 4"
+            errors["userId"] = "Provide userId with min length of 6"
         }
     
         if (!password) {

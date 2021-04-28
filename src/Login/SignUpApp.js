@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as signUpAction from '../Store/Actions/SignUpActions';
 import './LoginStyle.css';
+import Fotter from './Fotter';
 
 class SignUpApp extends Component{
     constructor(){
@@ -138,7 +139,7 @@ class SignUpApp extends Component{
                     </div>
                 </div>
                 <div className="container-fluid fotter">
-                    <h2 className="h2-signup">Fotter</h2>
+                    <Fotter/>
                 </div>
             </div>
         )

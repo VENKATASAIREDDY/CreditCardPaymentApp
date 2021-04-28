@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as changePasswordAction from '../Store/Actions/ChangePasswordActions';
 import './LoginStyle.css';
+import Fotter from './Fotter';
 
 class ChangePasswordApp extends Component {
     constructor() {
@@ -137,7 +138,7 @@ class ChangePasswordApp extends Component {
                     </div>
                 </div>
                 <div className="container-fluid fotter">
-                    <h2 className="h2-changepassword">Fotter</h2>
+                    <Fotter/>
                 </div>
             </div>
         )
