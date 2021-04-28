@@ -65,7 +65,6 @@ class AddUser extends Component{
             role:this.state.role
         };
         if(this.validate()){
-            alert("entered")
             this.props.adminAction.addUser(user);
         }
     }

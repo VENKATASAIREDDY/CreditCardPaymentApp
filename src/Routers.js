@@ -8,6 +8,7 @@ import FinishSignUp from './Login/FinishSignUp';
 import SignUpApp from './Login/SignUpApp';
 import Logout from './Login/Logout';
 import GuardedRoute from './ProtectedRoutes';
+import About from './Login/About';
 
 const Routes = () => (
     <BrowserRouter>
@@ -18,6 +19,7 @@ const Routes = () => (
             <Route path='/changePassword' component={ChangePasswordApp} exact/>  
             <Route path={`/signUp`} component={SignUpApp} exact/>
             <Route path={`/FinishSignUp/:userId`} component={FinishSignUp} exact/>
+            <Route path={`/about`} component={About} exact/>
 
             <GuardedRoute path='/home/:userId' component={HomeApp} />
             <GuardedRoute path='/admin/home/:userId' component={AdminHomeApp}/>  

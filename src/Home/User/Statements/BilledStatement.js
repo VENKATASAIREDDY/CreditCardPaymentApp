@@ -169,8 +169,14 @@ class BilledStatement extends Component {
                                 </div>
                             </div>
                             <hr className="hr-line-bold"/>
-                            <div className="row">
-                                <Link className="btn btn-primary" onClick={window.print}>Print</Link>
+                            <div className="row text-center">
+                                <div className="col-sm-4">
+                                    <Link className="btn btn-primary" to={`/home/${this.props.match.params.userId}/payments/payBill/${statement.statementId}`}>Pay Bill</Link>
+                                </div>
+                                <div className="col-sm-4">
+                                    <Link className="btn btn-primary" onClick={window.print}>Print</Link>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

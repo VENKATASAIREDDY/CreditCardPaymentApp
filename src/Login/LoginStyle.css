@@ -45,7 +45,7 @@
 }
 .body{
     background-image: url('../Images/LoginBackground.jpg');
-    min-height: 80vh;
+    min-height: 85vh;
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as signUpAction from '../Store/Actions/SignUpActions';
 import './LoginStyle.css';
 
-class FinishSignUp extends Component{
-    constructor(props){
+class FinishSignUp extends Component {
+    constructor(props) {
         super(props);
-        this.state={
-            userName:'',
-            email:'',
-            contactNo:'',
-            dob:'',
-            doorNo:'',
-            street:'',
-            area:'',
-            city:'',
-            state:'',
-            pincode:'',
-            errors:{}
+        this.state = {
+            userName: '',
+            email: '',
+            contactNo: '',
+            dob: '',
+            doorNo: '',
+            street: '',
+            area: '',
+            city: '',
+            state: '',
+            pincode: '',
+            errors: {}
         }
     }
-    
-    handleInputChange = event=>{
+
+    handleInputChange = event => {
         this.setState({
-            [event.target.name]:event.target.value
+            [event.target.name]: event.target.value
         });
     }
-    
-    validate = () =>{
+
+    validate = () => {
         let userName = this.state.userName;
         let email = this.state.email;
         let contactNo = this.state.contactNo;
@@ -39,110 +39,134 @@ class FinishSignUp extends Component{
         let area = this.state.area;
         let city = this.state.city;
         let state = this.state.state;
-        let pincode=this.state.pincode;
+        let pincode = this.state.pincode;
         let errors = {};
         let isValid = true;
 
         if (!userName) {
-          isValid = false;
-          errors["userName"] = "Please enter your Name";
+            isValid = false;
+            errors["userName"] = "Please enter your Name";
+        } else if (!userName.match("^[A-z][A-Z a-z]{5,50}$")) {
+            isValid = false;
+            errors["userName"] = "Please enter correct Name";
         }
-    
+
         if (!email) {
-          isValid = false;
-          errors["email"] = "Please enter the email";
-        }else if(!email.match("^[A-Za-z0-9]{3,}[@][a-z]{2,}[.][a-z.]{2,}[a-z]$")){
+            isValid = false;
+            errors["email"] = "Please enter the email";
+        } else if (!email.match("^[A-Za-z0-9]{3,}[@][a-z]{2,}[.][a-z.]{2,}[a-z]$")) {
             isValid = false;
             errors["email"] = "enter valid email ex:abc@gamil.com"
         }
-        
+
         if (!contactNo) {
             isValid = false;
             errors["contactNo"] = "Please enter your number";
-        }else if(!contactNo.match("[6-9][0-9]{9}")){
+        } else if (!contactNo.match("[6-9][0-9]{9}")) {
             isValid = false;
             errors["contactNo"] = "enter valid number of length 10"
         }
-    
+
         if (!dob) {
-        isValid = false;
-        errors["dob"] = "Please select the date of birth";
-        } 
+            isValid = false;
+            errors["dob"] = "Please select the date of birth";
+        } else if (new Date(dob) > new Date()) {
+            isValid = false;
+            errors["dob"] = "Please select valid date of birth";
+        }
 
         if (!doorNo) {
-        isValid = false;
-        errors["doorNo"] = "Please enter your door number";
+            isValid = false;
+            errors["doorNo"] = "Please enter your door number";
+        } else if (!doorNo.match("^[A-z0-9][A-z 0-9./-]{1,10}$")) {
+            isValid = false;
+            errors["doorNo"] = "enter Valid Door Number"
         }
-    
+
         if (!street) {
-        isValid = false;
-        errors["street"] = "Please enter the street";
-        } 
+            isValid = false;
+            errors["street"] = "Please enter the street";
+        } else if (!street.match("^[A-z][a-z , A-Z]{2,30}$")) {
+            isValid = false;
+            errors["street"] = "Enter valid Street Name"
+        }
 
         if (!city) {
-        isValid = false;
-        errors["city"] = "Please enter your city";
+            isValid = false;
+            errors["city"] = "Please enter your city";
+        } else if (!city.match("^[A-z][a-z A-Z]{1,30}$")) {
+            isValid = false;
+            errors["city"] = "Enter valid City"
         }
-    
+
         if (!area) {
-        isValid = false;
-        errors["area"] = "Please enter your area";
+            isValid = false;
+            errors["area"] = "Please enter your area";
+        } else if (!area.match("^[A-z][a-z , A-Z]{2,30}$")) {
+            isValid = false;
+            errors["area"] = "Enter valid area"
         }
 
         if (!state) {
             isValid = false;
             errors["state"] = "Please enter your state";
+        } else if (!state.match("^[A-z][a-z . A-Z]{1,30}$")) {
+            isValid = false;
+            errors["state"] = "Enter valid State"
         }
-        
+
         if (!pincode) {
             isValid = false;
             errors["pincode"] = "Please enter your pincode";
-        }else if(!pincode.match("[1-9][0-9]{5}")){
+        } else if (!pincode.match("[1-9][0-9]{5}")) {
             isValid = false;
             errors["pincode"] = "enter valid pincode";
         }
-      
+
         this.setState({
-          errors: errors
-        });
-    
+            errors: errors
+        })
+
+
         return isValid;
     }
-    finishSignUp = event=>{
+    finishSignUp = event => {
         event.preventDefault();
-        alert("entered")
 
-        const user={
-            userName:this.state.userName,
-            email:this.state.email,
-            contactNo:this.state.contactNo,
-            dob:this.state.dob,
-            doorNo:this.state.doorNo,
-            street:this.state.street,
-            area:this.state.area,
-            city:this.state.city,
-            state:this.state.state,
-            pincode:this.state.pincode
+        const user = {
+            userName: this.state.userName,
+            email: this.state.email,
+            contactNo: this.state.contactNo,
+            dob: this.state.dob,
+            doorNo: this.state.doorNo,
+            street: this.state.street,
+            area: this.state.area,
+            city: this.state.city,
+            state: this.state.state,
+            pincode: this.state.pincode
         };
-        if(this.validate()){
-            this.props.signUpAction.finishSignUp(user,this.props.match.params.userId);
+        if (this.validate()) {
+            this.props.signUpAction.finishSignUp(user, this.props.match.params.userId);
         }
     }
 
-    render(){
-        return(
+    render() {
+        if(this.props.isSignUpFinished){
+            return <Redirect to="/login" />
+        }
+        return (
             <div className="container-fluid whole">
-                <div className="container-fluid header">
+                <div className="container-fluid header text-center">
                     <h2>Welcome to Credit Card payment</h2>
                 </div>
                 <div className="container-fluid signUp-body">
                     <div className="row message">
                         <div className="col-md-4">
                             {
-                                (this.props.isSignUpFinished===false) && <div className="alert alert-danger" role="alert"><strong>Failed </strong>{this.props.signUp}</div>
+                                (this.props.isSignUpFinished === false) && <div className="alert alert-danger" role="alert"><strong>Failed </strong>{this.props.signUp}</div>
                             }
                             {
-                                (this.props.isSignUpFinished===true) && <div className="alert alert-success" role="alert">Sign Up Successfully</div>
+                                (this.props.isSignUpFinished === true) && <div className="alert alert-success" role="alert">Sign Up Successfully</div>
                             }
                         </div>
                     </div>
@@ -154,7 +178,7 @@ class FinishSignUp extends Component{
                                     <label htmlFor="firstName" className="col-lg-2 control-label">User Name* </label>
                                     <div className="col-lg-1">:</div>
                                     <div className="col-lg-6">
-                                        <input type="text" id="userName" placeholder="Enter the Name" name="userName" onChange={this.handleInputChange} className="form-control signUp-form" autofocus/>
+                                        <input type="text" id="userName" placeholder="Enter the Name" name="userName" onChange={this.handleInputChange} className="form-control signUp-form" autofocus />
                                         <span className="validations text-danger">{this.state.errors.userName}</span>
                                     </div>
                                 </div>
@@ -162,7 +186,7 @@ class FinishSignUp extends Component{
                                     <label for="email" className="col-sm-2 control-label">Email* </label>
                                     <div className="col-lg-1">:</div>
                                     <div className="col-sm-6">
-                                        <input type="email" id="email" placeholder="Email" className="form-control signUp-form" name= "email" onChange={this.handleInputChange}/>
+                                        <input type="email" id="email" placeholder="Email" className="form-control signUp-form" name="email" onChange={this.handleInputChange} />
                                         <span className="validations text-danger">{this.state.errors.email}</span>
                                     </div>
                                 </div>
@@ -170,7 +194,7 @@ class FinishSignUp extends Component{
                                     <label for="contactNumber" className="col-sm-2 control-label">Contact Number* </label>
                                     <div className="col-lg-1">:</div>
                                     <div className="col-sm-6">
-                                        <input type="text" id="contactNumber" placeholder="Contact number" name="contactNo" className="form-control signUp-form" onChange={this.handleInputChange}/>
+                                        <input type="text" id="contactNumber" placeholder="Contact number" name="contactNo" className="form-control signUp-form" onChange={this.handleInputChange} />
                                         <span className="validations text-danger">{this.state.errors.contactNo}</span>
                                     </div>
                                 </div>
@@ -178,23 +202,23 @@ class FinishSignUp extends Component{
                                     <label for="birthDate" className="col-sm-2 control-label">Date of Birth* </label>
                                     <div className="col-lg-1">:</div>
                                     <div className="col-sm-6">
-                                        <input type="date" id="birthDate" className="form-control signUp-form" name="dob" onChange={this.handleInputChange}/>
+                                        <input type="date" id="birthDate" className="form-control signUp-form" name="dob" onChange={this.handleInputChange} />
                                         <span className="validations text-danger">{this.state.errors.dob}</span>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <label for="address" className="col-sm-9 control-label">Address* </label>             
+                                    <label for="address" className="col-sm-9 control-label">Address* </label>
                                 </div>
-                                <hr className="mt-0"/>
+                                <hr className="mt-0" />
                                 <div className="row">
                                     <div className="col-lg-3">
                                         <label for="doornumber" className="control-label">Door Number* </label>
-                                        <input type="text" id="doornumber" className="form-control signUp-form" placeholder="Door No/ Flat No" name="doorNo" onChange={this.handleInputChange}/>
+                                        <input type="text" id="doornumber" className="form-control signUp-form" placeholder="Door No/ Flat No" name="doorNo" onChange={this.handleInputChange} />
                                         <span className="validations text-danger">{this.state.errors.doorNo}</span>
                                     </div>
                                     <div className="col-lg-4">
                                         <label for="Street" className="control-label">Street* </label>
-                                        <input type="text" id="Street" className="form-control signUp-form" placeholder="Street Name" name="street" onChange={this.handleInputChange}/>
+                                        <input type="text" id="Street" className="form-control signUp-form" placeholder="Street Name" name="street" onChange={this.handleInputChange} />
                                         <span className="validations text-danger">{this.state.errors.street}</span>
                                     </div>
                                     <div className="col-lg-4">
@@ -245,14 +269,14 @@ class FinishSignUp extends Component{
 function mapStateToProps(state) {
     return {
         signUp: state.SignUpReducers.signUp,
-        isSignUpFinished : state.SignUpReducers.isSignUpFinished
+        isSignUpFinished: state.SignUpReducers.isSignUpFinished
     }
-}  
- 
-function mapDispatchToProps (dispatch) {
-   return {
-        signUpAction : bindActionCreators(signUpAction,dispatch)
-   }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        signUpAction: bindActionCreators(signUpAction, dispatch)
+    }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(FinishSignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(FinishSignUp);

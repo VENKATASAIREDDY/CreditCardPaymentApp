@@ -701,7 +701,11 @@ export const doTransaction = (cardNumber,amount,description) => {
     return (dispatch) => {
         return Axios.get(apiUrl + '/home/customer/creditcard/transactions/transact/' + cardNumber+'/'+amount+'/'+description)
             .then(resp => {
-                dispatch(doTransactionSuccess(resp.data))
+                if(resp.data.status==="FAILED"){
+                    dispatch(doTransactionFail("Card Limit Exceded"))
+                }else{
+                    dispatch(doTransactionSuccess(resp.data))
+                }
             })
             .catch(error => {
                 dispatch(doTransactionFail(error.response.data))

@@ -147,7 +147,7 @@ class LoginApp extends Component{
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid fotter">
+                <div className="container-fluid fotter noPadding">
                     {/* <h2 className="h2-login">Fotter</h2> */}
                     <Fotter/>
                 </div>

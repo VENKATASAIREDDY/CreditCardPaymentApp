@@ -37,6 +37,11 @@ class TransactionHistoryOfCard extends Component{
             sort : true
         },
         {
+            dataField : 'status',
+            text : 'Status',
+            sort : true
+        },
+        {
             dataField : 'description',
             text : 'Description of Transaction',
             sort : true,

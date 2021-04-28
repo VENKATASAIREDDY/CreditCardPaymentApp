@@ -31,7 +31,10 @@ export const doLogin = (payload) => {
                 })
             })
             .catch(error => {
-                if(error.response.status===401){
+                // eslint-disable-next-line 
+                if(error=="Error: Network Error"){
+                    dispatch(loginFailure("Network Error Please try again after some time"))
+                }else if(error.response.status===401){
                     dispatch(loginFailure("UserId Password Didnt Match"));
                 }else if(error.response.status===404){
                     dispatch(loginFailure("User Does not exists please SignUp"));
