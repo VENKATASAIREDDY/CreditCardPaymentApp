@@ -79,6 +79,7 @@ export const finishSignUp = (user,userId) => {
             })
             .catch(error => {
                 // alert(error.response.data)
+                // console.log(error)
                 dispatch(finishSignUpFail(error.response.data));
             });
     };
