@@ -3,6 +3,7 @@ import './AccountsStyle.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userAction from '../../../Store/Actions/UserActions';
+import { Redirect } from 'react-router';
 
 class AddAccount extends Component{
 
@@ -82,6 +83,9 @@ class AddAccount extends Component{
 
 
     render(){
+        if(this.props.isAddedAccount){
+            return <Redirect to={`/home/${this.props.match.params.userId}/accounts`}/>
+        }
         return(
             <div className="container top-padding">
                 <div className="container add-account">

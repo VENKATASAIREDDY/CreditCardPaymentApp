@@ -101,10 +101,14 @@ class UserHome extends Component {
             <div className="container-fluid bg-dark text-light home-main-body">
                 <div className="row scroll-message">
                     {
-                        (isFetchedPersonalDetails === true) && <h3 className="text-animated scroll-message">Welcome to Credit Card Payment {personalDetails.userName} . Pay Your Bills Online. Stay Home Stay Safe </h3>
+                        (isFetchedPersonalDetails === true) && 
+                            // eslint-disable-next-line
+                            <marquee direction="left"><h3>Welcome to Credit Card Payment {personalDetails.userName} . Pay Your Bills Online. Stay Home Stay Safe </h3></marquee>
                     }
                     {
-                        (isFetchedPersonalDetails === false) && <h3 className="text-animated scroll-message">Welcome to Credit Card Payment. Pay Your Bills Online. Stay Home Stay Safe </h3>
+                        (isFetchedPersonalDetails === false) && 
+                        // eslint-disable-next-line
+                        <marquee direction="left"><h3 >Welcome to Credit Card Payment. Pay Your Bills Online. Stay Home Stay Safe </h3></marquee>
                     }
                 </div>
                 <div className="row body-home">

@@ -2,23 +2,6 @@
     padding: 0mm 0mm 0mm 0mm;
 }
 
-
-.text-animated {
-    display: inline-block;
-    white-space: nowrap;
-    animation: floatText 20s infinite linear;
-    text-indent: 100vh;
-    position: absolute;
-    padding-left: 100%;
-}
-.text-animated:hover {
-    animation-play-state: paused;
-}
-@keyframes floatText {
-    to {
-        transform: translateX(-100%);
-    }
-}
 .body-home{
     margin-top: 5mm;
     margin-bottom: 5mm;
